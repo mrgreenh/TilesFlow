@@ -1,0 +1,7 @@
+{
+  "generator-react-webpack": {
+    "appName": "origamiFlow",
+    "style": "sass",
+    "postcss": true
+  }
+}
