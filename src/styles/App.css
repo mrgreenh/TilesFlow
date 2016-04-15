@@ -4,6 +4,10 @@ body {
   background: #222;
 }
 
+#app #pt {
+  height:500px;
+}
+
 .index img {
   margin: 40px auto;
   border-radius: 4px;
