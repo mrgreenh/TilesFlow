@@ -14,77 +14,84 @@ class AppComponent extends React.Component {
     var canvasWidth = canvasElem.width;
     var canvasHeight = canvasElem.height;
 
-    var step = 120;
+    var step = 100;
 
     var forceField = [
       {
         x: -20,
         y: -20,
         direction: "outer",
-        intensity: 100,
+        intensity: 70,
         color: [255,255,200]
       },
       {
         x: 0,
-        y: 0,
+        y: 20,
         direction: "outer",
-        intensity: 80,
+        intensity: 70,
         color: [150,150,150]
       },
       {
         x: 50,
         y: -10,
         direction: "outer",
-        intensity: 40,
+        intensity: 70,
         color: [255,255,200]
       },
       {
         x: -10,
         y: 110,
         direction: "outer",
-        intensity: 100,
+        intensity: 70,
         color: [255,255,200]
       },
       {
         x: 40,
         y: 110,
         direction: "outer",
-        intensity: 80,
+        intensity: 70,
         color: [255,255,200]
+      },
+      {
+        x: 40,
+        y: 20,
+        direction: "outer",
+        intensity: 70,
+        color: [200,255,200]
       },
       {
         x: 60,
         y: 30,
         direction: "outer",
-        intensity: 50,
+        intensity: 70,
         color: [255,200,200]
       },
       {   
         x: 40,
         y: 80,
         direction: "outer",
-        intensity: 40,
+        intensity: 70,
         color: [200,200,255]
       },
       {   
         x: 20,
         y: 40,
         direction: "outer",
-        intensity: 50,
+        intensity: 70,
         color: [200,200,255]
       },
       {   
-        x: 85,
+        x: 15,
         y: 80,
         direction: "outer",
-        intensity: 50,
+        intensity: 70,
         color: [200,255,255]
       },
       {   
-        x: 90,
-        y: 30,
+        x: 50,
+        y: 70,
         direction: "outer",
-        intensity: 50,
+        intensity: 70,
         color: [255,200,255]
       }
     ];
@@ -97,7 +104,7 @@ class AppComponent extends React.Component {
 
     var bot = {
         animate: function( time, fs, context ) {
-            var offsetX = parseInt(time/100);
+            var offsetX = parseInt(time/10);
             var pointsMatrix = new PointsMatrix(canvasWidth, canvasHeight, step, forceField, offsetX);
             var points = pointsMatrix.getFlattenedMatrix();
             var triangles = pointsMatrix.getTriangles();
@@ -106,7 +113,7 @@ class AppComponent extends React.Component {
               if(triangle.color){
                 var color = "rgb("+[parseInt(triangle.color.x), parseInt(triangle.color.y), parseInt(triangle.color.z)].join(",")+")";
                 form.fill( color );
-                form.stroke( color );
+                form.stroke( "black" );
               }
               form.triangle(triangle.concept);
             }

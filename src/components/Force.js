@@ -32,7 +32,7 @@ class Force{
 
         var forceRadius = this.getForceRadius();
         //Linear decay for now
-        var forceDecay = (forceRadius - Math.min(forceRadius, Math.abs(distance)))/forceRadius;
+        var forceDecay = (forceRadius - Math.min(forceRadius, Math.abs(distance)))/(forceRadius||1);
 
         var vectorX = new Vector(1, 0);
         var vectorY = new Vector(0, 1);

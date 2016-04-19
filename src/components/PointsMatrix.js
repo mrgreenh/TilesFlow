@@ -5,7 +5,11 @@ import {Vector} from 'ptjs'
 
 class PointsMatrix {
     constructor(width, height, step, forceField, offsetX){
-        this._matrix = this.generateMatrix(width, height, step, forceField, offsetX);
+        this._matrix = this.generateMatrix( width + (step*6),
+                                            height,
+                                            step,
+                                            forceField,
+                                            offsetX);
     }
 
     generateMatrix(width, height, step, forceField, offsetX){
@@ -18,11 +22,11 @@ class PointsMatrix {
             width,
             height));
         var matrix = [];
-        for(let x=-5; x<(width/step)+5; x++){
+        for(let x=0; x<(width/step); x++){
             var column = [];
             for(let y=0; y<height/step; y++){
                 var offset = x%2 == 0 ? 0 : step/2;
-                var xCoord = x*step + offsetX%step*2;
+                var xCoord = x*step + (offsetX%step*2 - step*4);
                 var yCoord = y*step + offset;
 
                 var {newX, newY, colorSum} = this._applyForcesToPoint(xCoord, yCoord, forces);
@@ -74,28 +78,24 @@ class PointsMatrix {
         var triangles = [];
         for(let col=1; col < this._matrix.length-1; col ++){
             let even = !(col%2);
-            for(let row=0; row < this._matrix[col].length-1; row ++){
+            for(let row=2; row < this._matrix[col].length-1; row ++){
                 if(!even){
                     triangles.push(this.getTriangle([col, row],[col+1,row],[col+1, row+1]));
 
                     //Triangle on the left
-                    triangles.push(
-                        triangles.push(this.getTriangle([col, row],[col-1,row],[col-1, row+1]))
-                        );
+                    triangles.push(this.getTriangle([col, row],[col-1,row],[col-1, row+1]));
 
                     //Triangle on top
-                    triangles.push(
-                        triangles.push(this.getTriangle([col, row],[col-1,row],[col+1, row]))
-                    );
+                    triangles.push(this.getTriangle([col, row],[col-1,row],[col+1, row]));
 
                     //Triangle on bottom
-                    triangles.push(
-                        triangles.push(this.getTriangle([col, row],[col-1,row+1],[col+1, row+1]))
-                    );
+                    triangles.push(this.getTriangle([col, row],[col-1,row-1],[col+1, row-1]));
+
+                    // triangles.push(this.getTriangle([col, row],[col-1,row+1],[col+1, row+1]));
                 }
             }
         }
-        return triangles.filter(triangle => typeof(triangle)=="object");
+        return triangles;
     }
 
 }
