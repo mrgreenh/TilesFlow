@@ -6,6 +6,11 @@ body {
 
 #app #pt {
   height:500px;
+  width: 100%;
+}
+
+canvas {
+  border: solid 3px red;
 }
 
 .index img {

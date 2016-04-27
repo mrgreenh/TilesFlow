@@ -10,25 +10,26 @@ class PointsMatrix {
                                             step,
                                             forceField,
                                             offsetX);
+
     }
 
     generateMatrix(width, height, step, forceField, offsetX){
         var forces = forceField.map(force => new Force(
-            force.x,
-            force.y,
+            width/100*force.x,
+            height/100*force.y,
             force.direction,
             force.intensity,
             force.color,
             width,
             height));
+        // this._forces = forces;
         var matrix = [];
-        for(let x=0; x<(width/step); x++){
+        for(let x=0; x<=Math.ceil(width/step); x++){
             var column = [];
-            for(let y=0; y<height/step; y++){
+            for(let y=0; y<=Math.ceil(height/step); y++){
                 var offset = x%2 == 0 ? 0 : step/2;
                 var xCoord = x*step + (offsetX%step*2 - step*4);
-                var yCoord = y*step + offset;
-
+                var yCoord = y*step;
                 var {newX, newY, colorSum} = this._applyForcesToPoint(xCoord, yCoord, forces);
                 column.push(new ColorfulPoint(newX, newY, colorSum));
             }
