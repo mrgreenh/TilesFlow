@@ -7,16 +7,11 @@ class Force{
         this._vector = new Vector(this._x, this._y);
         this._direction = direction;
         this._intensity = intensity;
-        this._color = new Vector(color);
+        this._color = color;
 
         this._width = width;
         this._height = height;
-        //this._boundingBox =
     }
-
-    // _getBoundingBox(){
-
-    // }
 
     getForceRadius(){
         var smallestDimension = Math.min(this._width, this._height);
@@ -39,7 +34,7 @@ class Force{
         var forceX = forceRadius*forceDecay*vectorX.projection(normalizedVector).x;
         var forceY = forceRadius*forceDecay*vectorY.projection(normalizedVector).y;
 
-        var color = this._color.$multiply(forceDecay);
+        var color = this._color.map(colorCoord => colorCoord * forceDecay);
         return {forceX, forceY, color};
     }
 }

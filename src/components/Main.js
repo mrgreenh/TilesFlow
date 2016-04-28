@@ -14,46 +14,68 @@ class AppComponent extends React.Component {
     var canvasWidth = canvasElem.width;
     var canvasHeight = canvasElem.height;
 
-    var step = 20;
-
     var forceField = [
       {   
         x: 50,
         y: 30,
         decay: "linear",
-        intensity: 50,
-        color: [255,200,255]
+        intensity: 80,
+        color: [255, 0, 255, -255]
       },
       {   
         x: 20,
-        y: 30,
+        y: 10,
         decay: "linear",
-        intensity: 50,
-        color: [255,250,200]
+        intensity: 80,
+        color: [255, 255, 0, -255]
       },
       {   
-        x: 70,
-        y: 30,
+        x: 75,
+        y: 35,
         decay: "linear",
         intensity: 50,
-        color: [255,250,200]
+        color: [0, 50, 200, -255]
       },
       {   
-        x: 20,
-        y: 70,
+        x: 90,
+        y: 35,
+        decay: "linear",
+        intensity: 80,
+        color: [150, 0, 255, -255]
+      },
+      {   
+        x: 30,
+        y: 55,
         decay: "linear",
         intensity: 50,
-        color: [200,250,200]
-      }
+        color: [100, 200, 255, -255]
+      },
+      // {   
+      //   x: 20,
+      //   y: 110,
+      //   decay: "linear",
+      //   intensity: 100,
+      //   color: [255,255,255,255]
+      // },
+      // {   
+      //   x: 30,
+      //   y: 110,
+      //   decay: "linear",
+      //   intensity: 100,
+      //   color: [255,0,0,255]
+      // }
     ];
 
     var visualSettings = {
-        stroke: "#999"
+      step: 100,
+      baseColor: [255,255,255,50],
+      colorInterpolationMode:"subtraction",
+      showForces: true
     };
 
     var bot = {
         animate: function( time, fs, context ) {
-            var offsetX = parseInt(time/100);
+            var offsetX = parseInt(time/50);
             TilesFlow.render(space, forceField, visualSettings, offsetX);
         }
     };
