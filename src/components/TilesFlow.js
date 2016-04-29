@@ -1,5 +1,6 @@
 import {Form, Point, Color} from 'ptjs';
-import PointsMatrix from './PointsMatrix.js'
+import PointsMatrix from './PointsMatrix.js';
+import {brokenGlass} from './patterns.js';
 
 class TilesFlow {
     static render(space, forceField, visualSettings, offsetX){
@@ -11,7 +12,9 @@ class TilesFlow {
             pattern: undefined,
             baseColor: [0,0,0,0],
             colorInterpolationMode: "addition",
-            showForces: false
+            showForces: false,
+            pattern: brokenGlass,
+            padding: [2,0,0,0]
         }, visualSettings)
 
         var form = new Form(space);
@@ -24,7 +27,7 @@ class TilesFlow {
             forceField,
             offsetX);
         var points = pointsMatrix.getFlattenedMatrix();
-        var triangles = pointsMatrix.getTriangles();
+        var triangles = pointsMatrix.getTiles(visualSettings.pattern, visualSettings.padding);
 
         var forces = pointsMatrix._forces;
 

@@ -5,10 +5,11 @@ import React from 'react';
 import {CanvasSpace, Form, Point} from 'ptjs';
 import TilesFlow from './TilesFlow.js'
 import Force from './Force.js'
+import {cloth} from './patterns.js'
 
 class AppComponent extends React.Component {
   componentDidMount(){
-    var space = new CanvasSpace('canvasElem', '#f1f1f1').display();
+    var space = new CanvasSpace('canvasElem', '#fff').display();
 
     var canvasElem = document.querySelector("#pt canvas");
     var canvasWidth = canvasElem.width;
@@ -19,36 +20,43 @@ class AppComponent extends React.Component {
         x: 50,
         y: 30,
         decay: "linear",
+        intensity: 50,
+        color: [255, 0, 255, 255]
+      },
+      {   
+        x: 50,
+        y: 10,
+        decay: "linear",
         intensity: 80,
-        color: [255, 0, 255, -255]
+        color: [255, 255, 255, 255]
       },
       {   
         x: 20,
         y: 10,
         decay: "linear",
         intensity: 80,
-        color: [255, 255, 0, -255]
+        color: [255, 255, 0, 255]
       },
       {   
-        x: 75,
-        y: 35,
+        x: 85,
+        y: 110,
         decay: "linear",
-        intensity: 50,
-        color: [0, 50, 200, -255]
+        intensity: 80,
+        color: [0, 50, 200, 255]
       },
       {   
-        x: 90,
+        x: 70,
         y: 35,
         decay: "linear",
         intensity: 80,
-        color: [150, 0, 255, -255]
+        color: [150, 0, 255, 255]
       },
       {   
         x: 30,
         y: 55,
         decay: "linear",
         intensity: 50,
-        color: [100, 200, 255, -255]
+        color: [100, 200, 255, 255]
       },
       // {   
       //   x: 20,
@@ -68,14 +76,14 @@ class AppComponent extends React.Component {
 
     var visualSettings = {
       step: 100,
-      baseColor: [255,255,255,50],
-      colorInterpolationMode:"subtraction",
-      showForces: true
+      baseColor: [0,0,0,0],
+      colorInterpolationMode:"addition",
+      stroke: [255,255,255,100]
     };
 
     var bot = {
         animate: function( time, fs, context ) {
-            var offsetX = parseInt(time/50);
+            var offsetX = time/50;
             TilesFlow.render(space, forceField, visualSettings, offsetX);
         }
     };

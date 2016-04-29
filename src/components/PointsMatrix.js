@@ -32,7 +32,7 @@ class PointsMatrix {
             height));
         this._forces = forces;
         var matrix = [];
-        for(let x=0; x<=Math.ceil((width+step)/step); x++){
+        for(let x=0; x<=Math.ceil((width+(4*step))/step); x++){
             var column = [];
             for(let y=0; y<=Math.ceil(height/step); y++){
                 var xCoord = x*step + (offsetX%step*2 - step*2);
@@ -100,28 +100,25 @@ class PointsMatrix {
                                          this._baseColor);
     }
 
-    getTriangles(){
-        var triangles = [];
-        for(let col=1; col < this._matrix.length-1; col ++){
+    getTiles(pattern, padding){
+        var tiles = [];
+        for(let col=padding[3]; col < this._matrix.length-1-padding[1]; col ++){
             let even = !(col%2);
-            for(let row=2; row < this._matrix[col].length-1; row ++){
+            for(let row=padding[0]; row < this._matrix[col].length-1-padding[2]; row ++){
                 if(!even){
-                    triangles.push(this.getTriangle([col, row],[col+1,row],[col+1, row+1]));
-
-                    //Triangle on the left
-                    triangles.push(this.getTriangle([col, row],[col-1,row],[col-1, row+1]));
-
-                    //Triangle on top
-                    triangles.push(this.getTriangle([col, row],[col-1,row],[col+1, row]));
-
-                    //Triangle on bottom
-                    triangles.push(this.getTriangle([col, row],[col-1,row-1],[col+1, row-1]));
-
-                    // triangles.push(this.getTriangle([col, row],[col-1,row+1],[col+1, row+1]));
+                    for(var t in pattern){
+                        var points = pattern[t];
+                        if(points.length == 3){
+                            tiles.push(this.getTriangle(
+                                [col+points[0][0], row+points[0][1]],
+                                [col+points[1][0], row+points[1][1]],
+                                [col+points[2][0], row+points[2][1]]));
+                        }
+                    }
                 }
             }
         }
-        return triangles;
+        return tiles;
     }
 
 }

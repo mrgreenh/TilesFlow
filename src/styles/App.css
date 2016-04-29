@@ -1,16 +1,12 @@
 /* Base Application Styles */
 body {
   color: #fff;
-  background: #222;
+  background-color: #fff;
 }
 
 #app #pt {
   height:500px;
   width: 100%;
-}
-
-canvas {
-  border: solid 3px red;
 }
 
 .index img {
