@@ -17,60 +17,67 @@ class AppComponent extends React.Component {
 
     var forceField = [
       {   
-        x: 50,
-        y: 30,
-        decay: "linear",
-        intensity: 50,
-        color: [255, 0, 255, 255]
-      },
-      {   
-        x: 50,
-        y: 10,
-        decay: "linear",
+        x: 55,
+        y: 20,
+        decay: "sine",
         intensity: 80,
-        color: [255, 255, 255, 255]
-      },
-      {   
-        x: 20,
-        y: 10,
-        decay: "linear",
-        intensity: 80,
-        color: [255, 255, 0, 255]
-      },
-      {   
-        x: 85,
-        y: 110,
-        decay: "linear",
-        intensity: 80,
-        color: [0, 50, 200, 255]
-      },
-      {   
-        x: 70,
-        y: 35,
-        decay: "linear",
-        intensity: 80,
-        color: [150, 0, 255, 255]
+        influencePosition: true,
+        axis:"y",
+        invert: true,
+        color: [255, 150, 0, 255]
       },
       {   
         x: 30,
-        y: 55,
-        decay: "linear",
+        y: 30,
+        decay: "clipping_power",
+        intensity: 100,
+        color: [0, 110, 0, 255],
+        influencePosition: true,
+        influenceColor: true,
+        axis: "y"
+      },
+      {   
+        x: 20,
+        y: 11,
+        decay: "cosine",
         intensity: 50,
-        color: [100, 200, 255, 255]
+        color: [255, 110, 255, 255],
+        influenceColor: true
       },
       // {   
-      //   x: 20,
-      //   y: 110,
-      //   decay: "linear",
-      //   intensity: 100,
-      //   color: [255,255,255,255]
+      //   x: 85,
+      //   y: 111,
+      //   decay: "cosine",
+      //   intensity: 50,
+      //   color: [5, 0, 0, 255]
+      // },
+      // {   
+      //   x: 70,
+      //   y: 35,
+      //   decay: "cosine",
+      //   intensity: 50,
+      //   color: [255, 110, 255, 255]
       // },
       // {   
       //   x: 30,
-      //   y: 110,
-      //   decay: "linear",
+      //   y: 80,
+      //   decay: "cosine",
       //   intensity: 100,
-      //   color: [255,0,0,255]
+      //   color: [55, 200, 110, 255]
+      // },
+      // {   
+      //   x: 50,
+      //   y: 75,
+      //   decay: "cosine",
+      //   intensity: 70,
+      //   color: [55, 200, 110, 255]
+      // },
+      // {   
+      //   x: 80,
+      //   y: 90,
+      //   decay: "cosine",
+      //   intensity: 120,
+      //   color: [55, 200, 110, 255]
       // }
     ];
 
@@ -78,7 +85,9 @@ class AppComponent extends React.Component {
       step: 100,
       baseColor: [0,0,0,0],
       colorInterpolationMode:"addition",
-      stroke: [255,255,255,100]
+      padding: [0,0,2,0],
+      pattern:cloth,
+      stroke: [0,0,0,255]
     };
 
     var bot = {

@@ -14,7 +14,8 @@ class TilesFlow {
             colorInterpolationMode: "addition",
             showForces: false,
             pattern: brokenGlass,
-            padding: [2,0,0,0]
+            padding: [0,0,0,0],
+            pointsColor: [0,0,0,0]
         }, visualSettings)
 
         var form = new Form(space);
@@ -31,8 +32,6 @@ class TilesFlow {
 
         var forces = pointsMatrix._forces;
 
-        form.points( points );
-
         for(let triangle of triangles){
             if(triangle.color){
                 var color = triangle.color;
@@ -43,6 +42,11 @@ class TilesFlow {
             }
             form.triangle(triangle.concept);
         }
+
+        var pointsColor = visualSettings.pointsColor;
+        form.fill(new Color(pointsColor[0], pointsColor[1], pointsColor[2], pointsColor[3]/255, 'rgba').rgba());
+        form.stroke(new Color(pointsColor[0], pointsColor[1], pointsColor[2], pointsColor[3]/255, 'rgba').rgba());
+        form.points( points.map(point => point.concept) );
 
         if(visualSettings.showForces){
             for(let i in forces){

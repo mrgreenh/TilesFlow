@@ -29,14 +29,19 @@ class PointsMatrix {
             force.intensity,
             force.color,
             width,
-            height));
+            height,
+            force.decay,
+            force.invert,
+            force.influenceColor,
+            force.influencePosition,
+            force.axis));
         this._forces = forces;
         var matrix = [];
         for(let x=0; x<=Math.ceil((width+(4*step))/step); x++){
             var column = [];
             for(let y=0; y<=Math.ceil(height/step); y++){
                 var xCoord = x*step + (offsetX%step*2 - step*2);
-                var yCoord = y*step;
+                var yCoord = y*step + (x%2)*step/2;
                 var {newX, newY, colorSum} = this._applyForcesToPoint(
                     xCoord,
                     yCoord,
@@ -55,19 +60,23 @@ class PointsMatrix {
         var colorSum = [0, 0, 0, 0];
         for(var i in forces){
             var {forceX, forceY, color} = forces[i].getForceAtPoint(x, y);
-            vectorsXSum += forceX;
-            vectorsYSum += forceY;
-            
-            var colorInterpolationFunction;
-            switch(colorInterpolationMode){
-                case "subtraction":
-                    colorInterpolationFunction = (currentCoord, i) => currentCoord - color[i];
-                    break;                    
-                default:
-                    colorInterpolationFunction = (currentCoord, i) => currentCoord + color[i];
-                    break;
+            if(forces[i].influencePosition){
+                vectorsXSum += forces[i].axis == "y" ? 0 : forceX;
+                vectorsYSum += forces[i].axis == "x" ? 0 : forceY;                
             }
-            colorSum = colorSum.map(colorInterpolationFunction);
+            
+            if(forces[i].influenceColor){
+                var colorInterpolationFunction;
+                switch(colorInterpolationMode){
+                    case "subtraction":
+                        colorInterpolationFunction = (currentCoord, i) => currentCoord - color[i];
+                        break;                    
+                    default:
+                        colorInterpolationFunction = (currentCoord, i) => currentCoord + color[i];
+                        break;
+                }
+                colorSum = colorSum.map(colorInterpolationFunction);
+            }
         }
 
         var newX = x + vectorsXSum;
@@ -109,10 +118,12 @@ class PointsMatrix {
                     for(var t in pattern){
                         var points = pattern[t];
                         if(points.length == 3){
-                            tiles.push(this.getTriangle(
+                            var result = this.getTriangle(
                                 [col+points[0][0], row+points[0][1]],
                                 [col+points[1][0], row+points[1][1]],
-                                [col+points[2][0], row+points[2][1]]));
+                                [col+points[2][0], row+points[2][1]]);
+                            if(result)
+                                tiles.push(result);
                         }
                     }
                 }
