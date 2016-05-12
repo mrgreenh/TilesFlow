@@ -17,12 +17,11 @@ class AppComponent extends React.Component {
 
     var forceField = [
       {   
-        x: 55,
+        x: 20,
         y: 20,
-        decay: "sine",
+        decay: "linear",
         intensity: 80,
         influencePosition: true,
-        axis:"y",
         invert: true,
         color: [255, 150, 0, 255]
       },
@@ -82,7 +81,7 @@ class AppComponent extends React.Component {
     ];
 
     var visualSettings = {
-      step: 100,
+      step: 50,
       baseColor: [0,0,0,0],
       colorInterpolationMode:"addition",
       padding: [0,0,2,0],

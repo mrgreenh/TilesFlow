@@ -42,22 +42,28 @@ class Force{
         var distance = forceToPointVector.magnitude();
 
         var forceRadius = this.getForceRadius();
+
         var forceDecay;
-        var x = (forceRadius - Math.min(forceRadius, Math.abs(distance)))/(forceRadius||1);
-        if(this._invert) x = 1 - x;
-        switch(this._decay){
-            case "cosine":
-                forceDecay = Math.pow(Math.cos(Math.PI * (1 - x) / 2), 3.5);
-                break;
-            case "clipping_power":
-                forceDecay = Math.pow(Math.max(0, Math.abs(x) * 2 - 1), 3)
-                break;
-            case "sine":
-                forceDecay = Math.pow(Math.abs(Math.sin(Math.PI * x / 2)), 0.5);
-                break;
-            default:
-                forceDecay = x;
-                break;
+        if(distance > forceRadius){
+            if(this._invert) forceDecay=1;
+            else forceDecay=0;
+        }else{
+            var x = (forceRadius - Math.min(forceRadius, Math.abs(distance)))/(forceRadius||1);
+            if(this._invert) x = 1 - x;
+            switch(this._decay){
+                case "cosine":
+                    forceDecay = Math.pow(Math.cos(Math.PI * (1 - x) / 2), 3.5);
+                    break;
+                case "clipping_power":
+                    forceDecay = Math.pow(Math.max(0, Math.abs(x) * 2 - 1), 3)
+                    break;
+                case "sine":
+                    forceDecay = Math.pow(Math.abs(Math.sin(Math.PI * x / 2)), 0.5);
+                    break;
+                default:
+                    forceDecay = x;
+                    break;
+            }            
         }
 
         var normalizedVector = forceToPointVector.$normalize();
