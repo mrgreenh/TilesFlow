@@ -5,7 +5,7 @@ import React from 'react';
 import {CanvasSpace, Form, Point} from 'ptjs';
 import TilesFlow from './TilesFlow.js'
 import Force from './Force.js'
-import {cloth} from './patterns.js'
+import {brokenGlass, cloth} from './patterns.js'
 import ForceField from './ForceField.js';
 
 class AppComponent extends React.Component {
@@ -27,6 +27,28 @@ class AppComponent extends React.Component {
             color: [255, 150, 0, 255]
           },
           {   
+            x: 60,
+            y: 40,
+            decay: "cosine",
+            intensity: 100,
+            influencePosition: true,
+            invert: false,
+            axis:"y",
+            color: [255, 150, 0, 255]
+          },
+
+          {   
+            x: 70,
+            y: 65,
+            decay: "cosine",
+            intensity: 60,
+            influencePosition: true,
+            invert: false,
+            axis:"y",
+            color: [255, 150, 0, 255]
+          },
+
+          {   
             x: 30,
             y: 30,
             decay: "clipping_power",
@@ -40,8 +62,16 @@ class AppComponent extends React.Component {
             x: 20,
             y: 11,
             decay: "cosine",
-            intensity: 50,
+            intensity: 100,
             color: [255, 110, 255, 255],
+            influenceColor: true
+          },
+          {   
+            x: 50,
+            y: 71,
+            decay: "linear",
+            intensity: 200,
+            color: [0, 200, 255, 255],
             influenceColor: true
           },
           // {   
@@ -86,15 +116,15 @@ class AppComponent extends React.Component {
       baseColor: [0,0,0,0],
       colorInterpolationMode:"addition",
       padding: [0,0,2,0],
-      pattern:cloth,
-      stroke: [0,0,0,255]
+      pattern:brokenGlass,
+      stroke: [100,100,100,100]
     };
 
     var flow = new TilesFlow(space, forceField, visualSettings);
 
     var bot = {
         animate: function( time, fs, context ) {
-            var offsetX = time/50;
+            var offsetX = time/20;
             flow.render(offsetX);
         }
     };
