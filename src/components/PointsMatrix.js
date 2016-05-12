@@ -22,19 +22,7 @@ class PointsMatrix {
     }
 
     generateMatrix(width, height, step, colorInterpolationMode, forceField, offsetX){
-        var forces = forceField.map(force => new Force(
-            width/100*force.x,
-            height/100*force.y,
-            force.direction,
-            force.intensity,
-            force.color,
-            width,
-            height,
-            force.decay,
-            force.invert,
-            force.influenceColor,
-            force.influencePosition,
-            force.axis));
+        var forces = forceField.getForces();
         this._forces = forces;
         var matrix = [];
         for(let x=0; x<=Math.ceil((width+(4*step))/step); x++){

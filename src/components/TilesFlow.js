@@ -1,11 +1,19 @@
 import {Form, Point, Color} from 'ptjs';
 import PointsMatrix from './PointsMatrix.js';
 import {brokenGlass} from './patterns.js';
+import ForceField from './ForceField.js';
 
 class TilesFlow {
-    static render(space, forceField, visualSettings, offsetX){
 
-        visualSettings = Object.assign({}, {
+    constructor(space, forceField, visualSettings){
+        this._space = space;
+        this._forceField = new ForceField(forceField, space.size.x, space.size.y);
+        this._visualSettings = visualSettings;
+    }
+
+    render(offsetX){
+
+        var visualSettings = Object.assign({}, {
             step: 100,
             stroke: undefined,
             fill: undefined,
@@ -16,16 +24,16 @@ class TilesFlow {
             pattern: brokenGlass,
             padding: [0,0,0,0],
             pointsColor: [0,0,0,0]
-        }, visualSettings)
+        }, this._visualSettings)
 
-        var form = new Form(space);
+        var form = new Form(this._space);
         var pointsMatrix = new PointsMatrix(
-            space.size.x,
-            space.size.y,
+            this._space.size.x,
+            this._space.size.y,
             visualSettings.step,
             visualSettings.baseColor,
             visualSettings.colorInterpolationMode,
-            forceField,
+            this._forceField,
             offsetX);
         var points = pointsMatrix.getFlattenedMatrix();
         var triangles = pointsMatrix.getTiles(visualSettings.pattern, visualSettings.padding);
@@ -59,12 +67,12 @@ class TilesFlow {
 
     }
 
-    static getFillWithSettings(color, visualSettings){
+    getFillWithSettings(color, visualSettings){
         if(!visualSettings.fill) return color;
         else return visualSettings.fill;
     }
 
-    static getStrokeWithSettings(color, visualSettings){
+    getStrokeWithSettings(color, visualSettings){
         if(!visualSettings.stroke) return color;
         else return visualSettings.stroke;
     }
