@@ -52,7 +52,7 @@ class Force{
             if(this._invert) x = 1 - x;
             switch(this._decay){
                 case "cosine":
-                    forceDecay = Math.pow(Math.cos(Math.PI * (1 - x) / 2), 3.5);
+                    forceDecay = Math.pow(Math.cos(Math.PI * (1 - x) / 2), 10);
                     break;
                 case "clipping_power":
                     forceDecay = Math.pow(Math.max(0, Math.abs(x) * 2 - 1), 3)

@@ -20,8 +20,8 @@ class AppComponent extends React.Component {
           {   
             x: 20,
             y: 20,
-            decay: "linear",
-            intensity: 80,
+            decay: "cosine",
+            intensity: 100,
             influencePosition: true,
             invert: true,
             color: [255, 150, 0, 255]
@@ -33,7 +33,6 @@ class AppComponent extends React.Component {
             intensity: 100,
             influencePosition: true,
             invert: false,
-            axis:"y",
             color: [255, 150, 0, 255]
           },
 
@@ -41,7 +40,7 @@ class AppComponent extends React.Component {
             x: 70,
             y: 65,
             decay: "cosine",
-            intensity: 60,
+            intensity: 200,
             influencePosition: true,
             invert: false,
             axis:"y",
@@ -49,10 +48,10 @@ class AppComponent extends React.Component {
           },
 
           {   
-            x: 30,
-            y: 30,
+            x: 35,
+            y: 35,
             decay: "clipping_power",
-            intensity: 100,
+            intensity: 130,
             color: [0, 110, 0, 255],
             influencePosition: true,
             influenceColor: true,
@@ -112,7 +111,7 @@ class AppComponent extends React.Component {
         ];
 
     var visualSettings = {
-      step: 50,
+      step: 70,
       baseColor: [0,0,0,0],
       colorInterpolationMode:"addition",
       padding: [0,0,2,0],
