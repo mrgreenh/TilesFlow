@@ -1,0 +1,27 @@
+{
+  "name": "tilesflowpages",
+  "version": "1.0.0",
+  "description": "The github page for the TilesFlow thinghy",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrgreenh/TilesFlow.git"
+  },
+  "keywords": [
+    "animation",
+    "ptjs",
+    "triangles",
+    "geometry"
+  ],
+  "author": "mrgreenh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mrgreenh/TilesFlow/issues"
+  },
+  "homepage": "https://github.com/mrgreenh/TilesFlow#readme"
+}
