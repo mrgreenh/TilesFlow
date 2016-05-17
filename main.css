@@ -1,0 +1,14 @@
+body {
+    
+}
+
+#animation-header {
+    width: 100%;
+    height: 500px;
+}
+
+#animation-canvas {
+    width: 100%;
+    height: 500px;
+    border: solid 1px black;
+}
