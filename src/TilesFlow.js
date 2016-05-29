@@ -1,6 +1,6 @@
 import {Form, Point, Color} from 'ptjs';
 import PointsMatrix from './PointsMatrix.js';
-import {cloth} from './patterns.js';
+import patterns from './patterns.js';
 import ForceField from './ForceField.js';
 
 class TilesFlow {
@@ -21,7 +21,7 @@ class TilesFlow {
             baseColor: [0,0,0,0],
             colorInterpolationMode: "addition",
             showForces: false,
-            pattern: cloth,
+            pattern: patterns.cloth,
             padding: [0,0,0,0],
             pointsColor: [0,0,0,0]
         }, this._visualSettings)
@@ -78,4 +78,5 @@ class TilesFlow {
     }
 }
 
+exports.patterns = patterns;
 export default TilesFlow;
