@@ -1,5 +1,4 @@
-import {patterns} from 'tilesflow';
-
+import TilesFlow from 'tilesflow';
 var configurations = configurations = {
     theGrid: {
         forces: [
@@ -16,18 +15,17 @@ var configurations = configurations = {
     forces: {
         forces: [
             {
-             x: 20,
-             y: 20,
-             decay: "cosine",
-             intensity: 60,
+             x: 30,
+             y: 45,
+             decay: "linear",
+             intensity: 100,
              influencePosition: true,
-             invert: true,
-             color: [255, 150, 0, 255]
-           }
+             color: [100, 50, 50, 255]
+           },
         ],
         visualConfig: {
             stroke: [0,255,0,255],
-//            pattern: patterns.brokenGlass
+            pattern: TilesFlow.PATTERNS.brokenGlass
         }
     },
     colors: {
@@ -38,20 +36,28 @@ var configurations = configurations = {
              stroke: [0,0,0,0],
              intensity: 60,
              influencePosition: true,
-             invert: true,
+             
              color: [255, 150, 0, 255],
- //            pattern: patterns.brokenGlass
+             pattern: TilesFlow.PATTERNS.brokenGlass
            },
        forces: [
             {
-             x: 20,
-             y: 20,
-             decay: "cosine",
-             intensity: 60,
+             x: 30,
+             y: 45,
+             decay: "linear",
+             intensity: 100,
              influencePosition: true,
              influenceColor: true,
-             invert: true,
-             color: [100, 150, 0, 255]
+             
+             color: [100, 50, 50, 255]
+           },
+                       {
+             x: 80,
+             y: 80,
+             decay: "linear",
+             intensity: 100,
+             influenceColor: true,
+             color: [200, 0, 255, 255]
            }
        ]
     }

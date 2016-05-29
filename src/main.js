@@ -1,4 +1,4 @@
-import TilesFlow, {patterns} from 'tilesflow';
+import TilesFlow from 'tilesflow';
 import {CanvasSpace, Form, Point} from 'ptjs';
 import ReadingTracker from './ReadingTracker.js';
 
@@ -29,7 +29,8 @@ var canvasElem = canvasElems.shift();
 canvasElems.push(canvasElem);
 
 console.log(TilesFlow)
-console.log(patterns)
+console.log(TilesFlow.PATTERNS)
+var a = TilesFlow;
 var flows = [new TilesFlow(space, readingTracker.forceField, readingTracker.visualSettings)];
 var maxSpeedInverse = 20;
 var speedInverse = 20;
@@ -62,7 +63,7 @@ function paint(timestamp){
       var inverseProgress = 1 - progress;
       canvasElems[1].style.opacity = inverseProgress;
       canvasElems[0].style.opacity = progress;
-      speedInverse = Math.abs(maxSpeedInverse - maxSpeedInverse * (progress * 2));
+      speedInverse = Math.max(15, Math.abs(maxSpeedInverse - maxSpeedInverse * (progress * 2)));
       transitionProgress ++;
     }else{
       transitionProgress = 0;

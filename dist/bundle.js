@@ -144,7 +144,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	canvasElems.push(canvasElem);
 	
 	console.log(_tilesflow2.default);
-	console.log(_tilesflow.patterns);
+	console.log(_tilesflow2.default.PATTERNS);
+	var a = _tilesflow2.default;
 	var flows = [new _tilesflow2.default(space, readingTracker.forceField, readingTracker.visualSettings)];
 	var maxSpeedInverse = 20;
 	var speedInverse = 20;
@@ -177,7 +178,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var inverseProgress = 1 - progress;
 	      canvasElems[1].style.opacity = inverseProgress;
 	      canvasElems[0].style.opacity = progress;
-	      speedInverse = Math.abs(maxSpeedInverse - maxSpeedInverse * (progress * 2));
+	      speedInverse = Math.max(15, Math.abs(maxSpeedInverse - maxSpeedInverse * (progress * 2)));
 	      transitionProgress++;
 	    } else {
 	      transitionProgress = 0;
@@ -1201,6 +1202,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		
 		var _patterns = __webpack_require__(71);
 		
+		var _patterns2 = _interopRequireDefault(_patterns);
+		
 		var _ForceField = __webpack_require__(72);
 		
 		var _ForceField2 = _interopRequireDefault(_ForceField);
@@ -1229,7 +1232,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		                baseColor: [0, 0, 0, 0],
 		                colorInterpolationMode: "addition",
 		                showForces: false
-		            }, (0, _defineProperty3.default)(_Object$assign2, 'pattern', _patterns.cloth), (0, _defineProperty3.default)(_Object$assign2, 'padding', [0, 0, 0, 0]), (0, _defineProperty3.default)(_Object$assign2, 'pointsColor', [0, 0, 0, 0]), _Object$assign2), this._visualSettings);
+		            }, (0, _defineProperty3.default)(_Object$assign2, 'pattern', _patterns2.default.cloth), (0, _defineProperty3.default)(_Object$assign2, 'padding', [0, 0, 0, 0]), (0, _defineProperty3.default)(_Object$assign2, 'pointsColor', [0, 0, 0, 0]), _Object$assign2), this._visualSettings);
 		
 		            var form = new _ptjs.Form(this._space);
 		            var pointsMatrix = new _PointsMatrix2.default(this._space.size.x, this._space.size.y, visualSettings.step, visualSettings.baseColor, visualSettings.colorInterpolationMode, this._forceField, offsetX);
@@ -1300,6 +1303,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		    return TilesFlow;
 		}();
 		
+		TilesFlow.PATTERNS = _patterns2.default;
 		exports.default = TilesFlow;
 	
 	/***/ },
@@ -14721,6 +14725,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _tilesflow = __webpack_require__(60);
 	
+	var _tilesflow2 = _interopRequireDefault(_tilesflow);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
 	var configurations = configurations = {
 	    theGrid: {
 	        forces: [],
@@ -14734,19 +14742,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    forces: {
 	        forces: [{
-	            x: 20,
-	            y: 20,
-	            decay: "cosine",
-	            intensity: 60,
+	            x: 30,
+	            y: 45,
+	            decay: "linear",
+	            intensity: 100,
 	            influencePosition: true,
-	            invert: true,
-	            color: [255, 150, 0, 255]
+	            color: [100, 50, 50, 255]
 	        }],
 	        visualConfig: {
-	            stroke: [0, 255, 0, 255]
+	            stroke: [0, 255, 0, 255],
+	            pattern: _tilesflow2.default.PATTERNS.brokenGlass
 	        }
 	    },
-	    //            pattern: patterns.brokenGlass
 	    colors: {
 	        visualConfig: {
 	            x: 20,
@@ -14755,19 +14762,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	            stroke: [0, 0, 0, 0],
 	            intensity: 60,
 	            influencePosition: true,
-	            invert: true,
-	            color: [255, 150, 0, 255]
+	
+	            color: [255, 150, 0, 255],
+	            pattern: _tilesflow2.default.PATTERNS.brokenGlass
 	        },
-	        //            pattern: patterns.brokenGlass
 	        forces: [{
-	            x: 20,
-	            y: 20,
-	            decay: "cosine",
-	            intensity: 60,
+	            x: 30,
+	            y: 45,
+	            decay: "linear",
+	            intensity: 100,
 	            influencePosition: true,
 	            influenceColor: true,
-	            invert: true,
-	            color: [100, 150, 0, 255]
+	
+	            color: [100, 50, 50, 255]
+	        }, {
+	            x: 80,
+	            y: 80,
+	            decay: "linear",
+	            intensity: 100,
+	            influenceColor: true,
+	            color: [200, 0, 255, 255]
 	        }]
 	    }
 	};
