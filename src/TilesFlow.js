@@ -78,5 +78,5 @@ class TilesFlow {
     }
 }
 
-exports.patterns = patterns;
-exports.TilesFlow = TilesFlow;
+TilesFlow.PATTERNS = patterns;
+export default TilesFlow;
