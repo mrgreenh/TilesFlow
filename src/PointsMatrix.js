@@ -85,9 +85,9 @@ class PointsMatrix {
     }
 
     getTriangle(anchor, pointA, pointB){
-        var anchorPoint = this._matrix[anchor[0]][anchor[1]];
-        var nextColPoint = this._matrix[pointA[0]][pointA[1]];
-        var nextRowPoint = this._matrix[pointB[0]][pointB[1]];
+        var anchorPoint = this._matrix[anchor[0]] ? this._matrix[anchor[0]][anchor[1]] : undefined;
+        var nextColPoint = this._matrix[pointA[0]] ? this._matrix[pointA[0]][pointA[1]] : undefined;
+        var nextRowPoint = this._matrix[pointB[0]] ? this._matrix[pointB[0]][pointB[1]] : undefined;
         
         if(!anchorPoint || !nextColPoint || !nextRowPoint) return;
         else return new ColorfulTriangle(anchorPoint,

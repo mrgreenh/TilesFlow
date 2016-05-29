@@ -62,116 +62,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _ptjs = __webpack_require__(67);
 	
-	var _patterns = __webpack_require__(72);
+	var _ReadingTracker = __webpack_require__(74);
+	
+	var _ReadingTracker2 = _interopRequireDefault(_ReadingTracker);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var canvasElem = document.querySelector("#animation-canvas");
-	canvasElem.width = window.innerWidth;
-	canvasElem.height = window.innerHeight;
+	var wwidth = window.innerWidth;
+	var readingTracker = new _ReadingTracker2.default();
 	
-	var space = new _ptjs.CanvasSpace('animation-canvas', '#fff').display();
+	var canvasElem = document.querySelector("#canvasElem");
+	canvasElem.width = wwidth;
+	canvasElem.height = 300;
+	var space = new _ptjs.CanvasSpace('canvasElem', '#fff').display("#pt");
 	
-	var forceField = [{
-	  x: 20,
-	  y: 20,
-	  decay: "cosine",
-	  intensity: 100,
-	  influencePosition: true,
-	  invert: true,
-	  color: [255, 150, 0, 255]
-	}, {
-	  x: 60,
-	  y: 40,
-	  decay: "cosine",
-	  intensity: 100,
-	  influencePosition: true,
-	  invert: false,
-	  color: [255, 150, 0, 255]
-	}, {
-	  x: 70,
-	  y: 65,
-	  decay: "cosine",
-	  intensity: 200,
-	  influencePosition: true,
-	  invert: false,
-	  axis: "y",
-	  color: [255, 150, 0, 255]
-	}, {
-	  x: 35,
-	  y: 35,
-	  decay: "clipping_power",
-	  intensity: 130,
-	  color: [0, 110, 0, 255],
-	  influencePosition: true,
-	  influenceColor: true,
-	  axis: "y"
-	}, {
-	  x: 20,
-	  y: 11,
-	  decay: "cosine",
-	  intensity: 100,
-	  color: [255, 110, 255, 255],
-	  influenceColor: true
-	}, {
-	  x: 50,
-	  y: 71,
-	  decay: "linear",
-	  intensity: 200,
-	  color: [0, 200, 255, 255],
-	  influenceColor: true
-	}];
+	space.size.x = canvasElem.width;
+	space.size.y = canvasElem.height;
 	
-	// {  
-	//   x: 85,
-	//   y: 111,
-	//   decay: "cosine",
-	//   intensity: 50,
-	//   color: [5, 0, 0, 255]
-	// },
-	// {  
-	//   x: 70,
-	//   y: 35,
-	//   decay: "cosine",
-	//   intensity: 50,
-	//   color: [255, 110, 255, 255]
-	// },
-	// {  
-	//   x: 30,
-	//   y: 80,
-	//   decay: "cosine",
-	//   intensity: 100,
-	//   color: [55, 200, 110, 255]
-	// },
-	// {  
-	//   x: 50,
-	//   y: 75,
-	//   decay: "cosine",
-	//   intensity: 70,
-	//   color: [55, 200, 110, 255]
-	// },
-	// {  
-	//   x: 80,
-	//   y: 90,
-	//   decay: "cosine",
-	//   intensity: 120,
-	//   color: [55, 200, 110, 255]
-	// }
-	var visualSettings = {
-	  step: 70,
-	  baseColor: [0, 0, 0, 100],
-	  colorInterpolationMode: "addition",
-	  padding: [0, 0, 2, 0],
-	  pattern: _patterns.brokenGlass,
-	  stroke: [100, 100, 100, 100]
-	};
-	
-	var flow = new _TilesFlow2.default(space, forceField, visualSettings);
+	var flow = new _TilesFlow2.default(space, readingTracker.forceField, readingTracker.visualSettings);
 	
 	function paint(timestamp) {
-	  var offsetX = timestamp / 20;
-	  flow.render(offsetX);
-	  window.requestAnimationFrame(paint);
+	    space.space.getContext("2d").clearRect(0, 0, space.size.x, 500);
+	    var offsetX = timestamp / 20;
+	    flow.render(offsetX);
+	    window.requestAnimationFrame(paint);
 	}
 	
 	paint();
@@ -7377,9 +7291,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: 'getTriangle',
 	        value: function getTriangle(anchor, pointA, pointB) {
-	            var anchorPoint = this._matrix[anchor[0]][anchor[1]];
-	            var nextColPoint = this._matrix[pointA[0]][pointA[1]];
-	            var nextRowPoint = this._matrix[pointB[0]][pointB[1]];
+	            var anchorPoint = this._matrix[anchor[0]] ? this._matrix[anchor[0]][anchor[1]] : undefined;
+	            var nextColPoint = this._matrix[pointA[0]] ? this._matrix[pointA[0]][pointA[1]] : undefined;
+	            var nextRowPoint = this._matrix[pointB[0]] ? this._matrix[pointB[0]][pointB[1]] : undefined;
 	
 	            if (!anchorPoint || !nextColPoint || !nextRowPoint) return;else return new _ColorfulTriangle2.default(anchorPoint, nextColPoint, nextRowPoint, this._colorInterpolationMode, this._baseColor);
 	        }
@@ -7648,6 +7562,147 @@ return /******/ (function(modules) { // webpackBootstrap
 	}();
 	
 	exports.default = ForceField;
+
+/***/ },
+/* 74 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _classCallCheck2 = __webpack_require__(65);
+	
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+	
+	var _createClass2 = __webpack_require__(66);
+	
+	var _createClass3 = _interopRequireDefault(_createClass2);
+	
+	var _configurations = __webpack_require__(75);
+	
+	var _configurations2 = _interopRequireDefault(_configurations);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ReadingTracker = function () {
+	    function ReadingTracker(configurations) {
+	        (0, _classCallCheck3.default)(this, ReadingTracker);
+	
+	        this._text = document.querySelector("#projectDescription");
+	
+	        this._scrollToConf("theGrid");
+	        this._bindScrollEvents();
+	    }
+	
+	    (0, _createClass3.default)(ReadingTracker, [{
+	        key: "_scrollToConf",
+	        value: function _scrollToConf(name) {
+	            if (_configurations2.default[name]) {
+	                this.forceField = _configurations2.default[name].forces;
+	                this.visualSettings = _configurations2.default[name].visualConfig;
+	            }
+	        }
+	    }, {
+	        key: "_bindScrollEvents",
+	        value: function _bindScrollEvents() {
+	            var _this = this;
+	
+	            window.addEventListener("scroll", function (e) {
+	                var paragraphs = document.querySelectorAll("#projectDescription p");
+	                for (var i = 0; i < paragraphs.length; i++) {
+	                    var p = paragraphs.item(i);
+	                    var boundingBox = p.getBoundingClientRect();
+	                    if (Math.abs(boundingBox.top - window.innerHeight / 2) < 50) {
+	                        var scrollCallbackName = p.getAttribute("data-scrollCallback");
+	                        console.log(scrollCallbackName);
+	                        if (scrollCallbackName && _configurations2.default[scrollCallbackName]) {
+	                            _this._scrollToConf(scrollCallbackName);
+	                            break;
+	                        }
+	                    }
+	                }
+	            });
+	        }
+	    }]);
+	    return ReadingTracker;
+	}();
+	
+	exports.default = ReadingTracker;
+
+/***/ },
+/* 75 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var configurations = configurations = {
+	  theGrid: {
+	    forces: [{
+	      x: 20,
+	      y: 20,
+	      decay: "cosine",
+	      intensity: 100,
+	      influencePosition: true,
+	      invert: true,
+	      color: [255, 150, 0, 255]
+	    }, {
+	      x: 60,
+	      y: 40,
+	      decay: "cosine",
+	      intensity: 100,
+	      influencePosition: true,
+	      invert: false,
+	      color: [255, 150, 0, 255]
+	    }, {
+	      x: 70,
+	      y: 65,
+	      decay: "cosine",
+	      intensity: 200,
+	      influencePosition: true,
+	      invert: false,
+	      axis: "y",
+	      color: [255, 150, 0, 255]
+	    }, {
+	      x: 35,
+	      y: 35,
+	      decay: "clipping_power",
+	      intensity: 130,
+	      color: [0, 110, 0, 255],
+	      influencePosition: true,
+	      influenceColor: true,
+	      axis: "y"
+	    }, {
+	      x: 20,
+	      y: 11,
+	      decay: "cosine",
+	      intensity: 100,
+	      color: [255, 110, 255, 255],
+	      influenceColor: true
+	    }, {
+	      x: 50,
+	      y: 71,
+	      decay: "linear",
+	      intensity: 200,
+	      color: [0, 200, 255, 255],
+	      influenceColor: true
+	    }],
+	    visualConfig: {
+	      step: 70,
+	      baseColor: [0, 0, 0, 0],
+	      colorInterpolationMode: "addition",
+	      padding: [0, 0, 2, 0],
+	      stroke: [100, 100, 100, 100]
+	    }
+	  }
+	};
+	
+	exports.default = configurations;
 
 /***/ }
 /******/ ])
