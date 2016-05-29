@@ -88,6 +88,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _patterns = __webpack_require__(71);
 	
+	var _patterns2 = _interopRequireDefault(_patterns);
+	
 	var _ForceField = __webpack_require__(72);
 	
 	var _ForceField2 = _interopRequireDefault(_ForceField);
@@ -116,7 +118,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                baseColor: [0, 0, 0, 0],
 	                colorInterpolationMode: "addition",
 	                showForces: false
-	            }, (0, _defineProperty3.default)(_Object$assign2, 'pattern', _patterns.cloth), (0, _defineProperty3.default)(_Object$assign2, 'padding', [0, 0, 0, 0]), (0, _defineProperty3.default)(_Object$assign2, 'pointsColor', [0, 0, 0, 0]), _Object$assign2), this._visualSettings);
+	            }, (0, _defineProperty3.default)(_Object$assign2, 'pattern', _patterns2.default.cloth), (0, _defineProperty3.default)(_Object$assign2, 'padding', [0, 0, 0, 0]), (0, _defineProperty3.default)(_Object$assign2, 'pointsColor', [0, 0, 0, 0]), _Object$assign2), this._visualSettings);
 	
 	            var form = new _ptjs.Form(this._space);
 	            var pointsMatrix = new _PointsMatrix2.default(this._space.size.x, this._space.size.y, visualSettings.step, visualSettings.baseColor, visualSettings.colorInterpolationMode, this._forceField, offsetX);
@@ -187,6 +189,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return TilesFlow;
 	}();
 	
+	TilesFlow.PATTERNS = _patterns2.default;
 	exports.default = TilesFlow;
 
 /***/ },
