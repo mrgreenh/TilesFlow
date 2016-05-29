@@ -1,4 +1,4 @@
-import TilesFlow from './TilesFlow.js';
+import TilesFlow from 'tilesflow';
 import {CanvasSpace, Form, Point} from 'ptjs';
 import ReadingTracker from './ReadingTracker.js';
 
