@@ -14,16 +14,17 @@ body {
     position: relative;
 }
 
-#pt{
+.pt{
     position: fixed;
     width: 100%;
 }
-#canvasElem {
+.canvasElem {
     width: 100%;
     height: 300px;
     margin: 0px auto;
     display: block;
 }
+
 
 #projectDescription {
     padding-top: 250px;

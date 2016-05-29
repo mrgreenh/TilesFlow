@@ -5,6 +5,7 @@ class ReadingTracker {
     constructor(configurations){
         this._text = document.querySelector("#projectDescription");
 
+        this.selectedConfName = undefined;
         this._scrollToConf("theGrid");
         this._bindScrollEvents();
     }
@@ -13,19 +14,20 @@ class ReadingTracker {
         if(configurations[name]){
             this.forceField = configurations[name].forces;
             this.visualSettings = configurations[name].visualConfig;
+            this.selectedConfName = name;
         }
     }
 
     _bindScrollEvents(){
         window.addEventListener("scroll", (e) => {
             var paragraphs = document.querySelectorAll("#projectDescription p");
-            for(let i = 0; i<paragraphs.length; i++){
+            for(let i = paragraphs.length-1; i>=0; i--){
                 var p = paragraphs.item(i);
                 var boundingBox = p.getBoundingClientRect();
-                if( Math.abs(boundingBox.top - window.innerHeight/2) < 50 ){
-                    var scrollCallbackName = p.getAttribute("data-scrollCallback");
-                    console.log(scrollCallbackName)
+                if( boundingBox.top < 300 ){
+                    var scrollCallbackName = p.getAttribute("data-scrollToConf");
                     if(scrollCallbackName && configurations[scrollCallbackName]){
+                        console.log(scrollCallbackName)
                         this._scrollToConf(scrollCallbackName);
                         break;
                     }

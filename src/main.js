@@ -5,21 +5,76 @@ import ReadingTracker from './ReadingTracker.js';
 var wwidth = window.innerWidth;
 var readingTracker = new ReadingTracker();
 
-var canvasElem = document.querySelector("#canvasElem");
-canvasElem.width = wwidth;
-canvasElem.height = 300;
-var space = new CanvasSpace('canvasElem', '#fff').display("#pt");
+var canvasElems = document.querySelectorAll(".canvasElem");
 
-space.size.x = canvasElem.width;
-space.size.y = canvasElem.height;
+for (var ce of canvasElems){
+  ce.width = wwidth;
+  ce.height = 350;
+}
 
-var flow = new TilesFlow(space, readingTracker.forceField, readingTracker.visualSettings);
+var canvasElems = Array.apply(null, canvasElems);
+var space1 = new CanvasSpace('canvasElem', '#fff').display("#pt");
+var space2 = new CanvasSpace('canvasElem2', '#fff').display("#pt2");
+var spaces = [space1, space2];
+
+
+for(var sp of spaces){
+  sp.size.x = canvasElems[0].width;
+  sp.size.y = canvasElems[0].height;
+}
+
+var space = spaces.shift();
+spaces.push(space);
+var canvasElem = canvasElems.shift();
+canvasElems.push(canvasElem);
+
+var flows = [new TilesFlow(space, readingTracker.forceField, readingTracker.visualSettings)];
+var maxSpeedInverse = 20;
+var speedInverse = 20;
+var transitionProgress = 0;
+var transitionLength = 100;
+var previousConfName = readingTracker.selectedConfName;
+var transitioningToConf = null;
 
 function paint(timestamp){
-    space.space.getContext("2d").clearRect(0,0,space.size.x,500)
-    var offsetX = timestamp/20;
-    flow.render(offsetX);
-    window.requestAnimationFrame(paint);
+  for(var i in flows){
+    var currentFlow = flows[i];
+    currentFlow._space.space.getContext("2d").clearRect(0,0,currentFlow._space.size.x,500)
+    var offsetX = timestamp/speedInverse;
+    currentFlow.render(offsetX);    
+  }
+
+  //Transition handling
+  if(previousConfName != readingTracker.selectedConfName || transitionProgress){
+    if(!transitioningToConf){
+      transitioningToConf = readingTracker.selectedConfName;
+      console.log("Starting transition to "+transitioningToConf);
+      var space = spaces.shift();
+      var targetForceField = Array.apply(null, readingTracker.forceField);
+      var targetVisualSettings = Object.assign({}, readingTracker.visualSettings)
+      flows.push(new TilesFlow(space, targetForceField, targetVisualSettings))
+      spaces.push(space);
+    }
+
+    if(transitionProgress < transitionLength){
+      var progress = transitionProgress/transitionLength;
+      var inverseProgress = 1 - progress;
+      canvasElems[1].style.opacity = inverseProgress;
+      canvasElems[0].style.opacity = progress;
+      speedInverse = Math.abs(maxSpeedInverse - maxSpeedInverse * (progress * 2));
+      transitionProgress ++;
+    }else{
+      transitionProgress = 0;
+      console.log("Finished transition to "+transitioningToConf);
+      previousConfName = transitioningToConf;
+      transitioningToConf = null;
+      flows.shift();
+      var invisibleCanvas = canvasElems.shift();
+      canvasElems.push(invisibleCanvas);
+    }
+  }
+
+  window.requestAnimationFrame(paint);
 }
 
 paint();

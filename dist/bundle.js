@@ -56,6 +56,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	
+	var _getIterator2 = __webpack_require__(2);
+	
+	var _getIterator3 = _interopRequireDefault(_getIterator2);
+	
+	var _assign = __webpack_require__(59);
+	
+	var _assign2 = _interopRequireDefault(_assign);
+	
 	var _TilesFlow = __webpack_require__(1);
 	
 	var _TilesFlow2 = _interopRequireDefault(_TilesFlow);
@@ -71,21 +79,117 @@ return /******/ (function(modules) { // webpackBootstrap
 	var wwidth = window.innerWidth;
 	var readingTracker = new _ReadingTracker2.default();
 	
-	var canvasElem = document.querySelector("#canvasElem");
-	canvasElem.width = wwidth;
-	canvasElem.height = 300;
-	var space = new _ptjs.CanvasSpace('canvasElem', '#fff').display("#pt");
+	var canvasElems = document.querySelectorAll(".canvasElem");
 	
-	space.size.x = canvasElem.width;
-	space.size.y = canvasElem.height;
+	var _iteratorNormalCompletion = true;
+	var _didIteratorError = false;
+	var _iteratorError = undefined;
 	
-	var flow = new _TilesFlow2.default(space, readingTracker.forceField, readingTracker.visualSettings);
+	try {
+	  for (var _iterator = (0, _getIterator3.default)(canvasElems), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	    var ce = _step.value;
+	
+	    ce.width = wwidth;
+	    ce.height = 350;
+	  }
+	} catch (err) {
+	  _didIteratorError = true;
+	  _iteratorError = err;
+	} finally {
+	  try {
+	    if (!_iteratorNormalCompletion && _iterator.return) {
+	      _iterator.return();
+	    }
+	  } finally {
+	    if (_didIteratorError) {
+	      throw _iteratorError;
+	    }
+	  }
+	}
+	
+	var canvasElems = Array.apply(null, canvasElems);
+	var space1 = new _ptjs.CanvasSpace('canvasElem', '#fff').display("#pt");
+	var space2 = new _ptjs.CanvasSpace('canvasElem2', '#fff').display("#pt2");
+	var spaces = [space1, space2];
+	
+	var _iteratorNormalCompletion2 = true;
+	var _didIteratorError2 = false;
+	var _iteratorError2 = undefined;
+	
+	try {
+	  for (var _iterator2 = (0, _getIterator3.default)(spaces), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+	    var sp = _step2.value;
+	
+	    sp.size.x = canvasElems[0].width;
+	    sp.size.y = canvasElems[0].height;
+	  }
+	} catch (err) {
+	  _didIteratorError2 = true;
+	  _iteratorError2 = err;
+	} finally {
+	  try {
+	    if (!_iteratorNormalCompletion2 && _iterator2.return) {
+	      _iterator2.return();
+	    }
+	  } finally {
+	    if (_didIteratorError2) {
+	      throw _iteratorError2;
+	    }
+	  }
+	}
+	
+	var space = spaces.shift();
+	spaces.push(space);
+	var canvasElem = canvasElems.shift();
+	canvasElems.push(canvasElem);
+	
+	var flows = [new _TilesFlow2.default(space, readingTracker.forceField, readingTracker.visualSettings)];
+	var maxSpeedInverse = 20;
+	var speedInverse = 20;
+	var transitionProgress = 0;
+	var transitionLength = 100;
+	var previousConfName = readingTracker.selectedConfName;
+	var transitioningToConf = null;
 	
 	function paint(timestamp) {
-	    space.space.getContext("2d").clearRect(0, 0, space.size.x, 500);
-	    var offsetX = timestamp / 20;
-	    flow.render(offsetX);
-	    window.requestAnimationFrame(paint);
+	  for (var i in flows) {
+	    var currentFlow = flows[i];
+	    currentFlow._space.space.getContext("2d").clearRect(0, 0, currentFlow._space.size.x, 500);
+	    var offsetX = timestamp / speedInverse;
+	    currentFlow.render(offsetX);
+	  }
+	
+	  //Transition handling
+	  if (previousConfName != readingTracker.selectedConfName || transitionProgress) {
+	    if (!transitioningToConf) {
+	      transitioningToConf = readingTracker.selectedConfName;
+	      console.log("Starting transition to " + transitioningToConf);
+	      var space = spaces.shift();
+	      var targetForceField = Array.apply(null, readingTracker.forceField);
+	      var targetVisualSettings = (0, _assign2.default)({}, readingTracker.visualSettings);
+	      flows.push(new _TilesFlow2.default(space, targetForceField, targetVisualSettings));
+	      spaces.push(space);
+	    }
+	
+	    if (transitionProgress < transitionLength) {
+	      var progress = transitionProgress / transitionLength;
+	      var inverseProgress = 1 - progress;
+	      canvasElems[1].style.opacity = inverseProgress;
+	      canvasElems[0].style.opacity = progress;
+	      speedInverse = Math.abs(maxSpeedInverse - maxSpeedInverse * (progress * 2));
+	      transitionProgress++;
+	    } else {
+	      transitionProgress = 0;
+	      console.log("Finished transition to " + transitioningToConf);
+	      previousConfName = transitioningToConf;
+	      transitioningToConf = null;
+	      flows.shift();
+	      var invisibleCanvas = canvasElems.shift();
+	      canvasElems.push(invisibleCanvas);
+	    }
+	  }
+	
+	  window.requestAnimationFrame(paint);
 	}
 	
 	paint();
@@ -156,7 +260,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                baseColor: [0, 0, 0, 0],
 	                colorInterpolationMode: "addition",
 	                showForces: false
-	            }, (0, _defineProperty3.default)(_Object$assign2, 'pattern', _patterns.brokenGlass), (0, _defineProperty3.default)(_Object$assign2, 'padding', [0, 0, 0, 0]), (0, _defineProperty3.default)(_Object$assign2, 'pointsColor', [0, 0, 0, 0]), _Object$assign2), this._visualSettings);
+	            }, (0, _defineProperty3.default)(_Object$assign2, 'pattern', _patterns.cloth), (0, _defineProperty3.default)(_Object$assign2, 'padding', [0, 0, 0, 0]), (0, _defineProperty3.default)(_Object$assign2, 'pointsColor', [0, 0, 0, 0]), _Object$assign2), this._visualSettings);
 	
 	            var form = new _ptjs.Form(this._space);
 	            var pointsMatrix = new _PointsMatrix2.default(this._space.size.x, this._space.size.y, visualSettings.step, visualSettings.baseColor, visualSettings.colorInterpolationMode, this._forceField, offsetX);
@@ -7593,6 +7697,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	        this._text = document.querySelector("#projectDescription");
 	
+	        this.selectedConfName = undefined;
 	        this._scrollToConf("theGrid");
 	        this._bindScrollEvents();
 	    }
@@ -7603,6 +7708,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            if (_configurations2.default[name]) {
 	                this.forceField = _configurations2.default[name].forces;
 	                this.visualSettings = _configurations2.default[name].visualConfig;
+	                this.selectedConfName = name;
 	            }
 	        }
 	    }, {
@@ -7612,13 +7718,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	            window.addEventListener("scroll", function (e) {
 	                var paragraphs = document.querySelectorAll("#projectDescription p");
-	                for (var i = 0; i < paragraphs.length; i++) {
+	                for (var i = paragraphs.length - 1; i >= 0; i--) {
 	                    var p = paragraphs.item(i);
 	                    var boundingBox = p.getBoundingClientRect();
-	                    if (Math.abs(boundingBox.top - window.innerHeight / 2) < 50) {
-	                        var scrollCallbackName = p.getAttribute("data-scrollCallback");
-	                        console.log(scrollCallbackName);
+	                    if (boundingBox.top < 300) {
+	                        var scrollCallbackName = p.getAttribute("data-scrollToConf");
 	                        if (scrollCallbackName && _configurations2.default[scrollCallbackName]) {
+	                            console.log(scrollCallbackName);
 	                            _this._scrollToConf(scrollCallbackName);
 	                            break;
 	                        }
@@ -7639,67 +7745,55 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	var configurations = configurations = {
-	  theGrid: {
-	    forces: [{
-	      x: 20,
-	      y: 20,
-	      decay: "cosine",
-	      intensity: 100,
-	      influencePosition: true,
-	      invert: true,
-	      color: [255, 150, 0, 255]
-	    }, {
-	      x: 60,
-	      y: 40,
-	      decay: "cosine",
-	      intensity: 100,
-	      influencePosition: true,
-	      invert: false,
-	      color: [255, 150, 0, 255]
-	    }, {
-	      x: 70,
-	      y: 65,
-	      decay: "cosine",
-	      intensity: 200,
-	      influencePosition: true,
-	      invert: false,
-	      axis: "y",
-	      color: [255, 150, 0, 255]
-	    }, {
-	      x: 35,
-	      y: 35,
-	      decay: "clipping_power",
-	      intensity: 130,
-	      color: [0, 110, 0, 255],
-	      influencePosition: true,
-	      influenceColor: true,
-	      axis: "y"
-	    }, {
-	      x: 20,
-	      y: 11,
-	      decay: "cosine",
-	      intensity: 100,
-	      color: [255, 110, 255, 255],
-	      influenceColor: true
-	    }, {
-	      x: 50,
-	      y: 71,
-	      decay: "linear",
-	      intensity: 200,
-	      color: [0, 200, 255, 255],
-	      influenceColor: true
-	    }],
-	    visualConfig: {
-	      step: 70,
-	      baseColor: [0, 0, 0, 0],
-	      colorInterpolationMode: "addition",
-	      padding: [0, 0, 2, 0],
-	      stroke: [100, 100, 100, 100]
+	    theGrid: {
+	        forces: [],
+	        visualConfig: {
+	            step: 70,
+	            baseColor: [0, 0, 0, 0],
+	            colorInterpolationMode: "addition",
+	            padding: [0, 0, 2, 0],
+	            stroke: [100, 100, 100, 100]
+	        }
+	    },
+	    forces: {
+	        forces: [{
+	            x: 20,
+	            y: 20,
+	            decay: "cosine",
+	            intensity: 60,
+	            influencePosition: true,
+	            invert: true,
+	            color: [255, 150, 0, 255]
+	        }],
+	        visualConfig: {
+	            stroke: [0, 255, 0, 255]
+	        }
+	    },
+	    colors: {
+	        visualConfig: {
+	            x: 20,
+	            y: 20,
+	            decay: "cosine",
+	            stroke: [0, 0, 0, 0],
+	            intensity: 60,
+	            influencePosition: true,
+	            invert: true,
+	            color: [255, 150, 0, 255]
+	        },
+	        forces: [{
+	            x: 20,
+	            y: 20,
+	            decay: "cosine",
+	            intensity: 60,
+	            influencePosition: true,
+	            influenceColor: true,
+	            invert: true,
+	            color: [100, 150, 0, 255]
+	        }]
 	    }
-	  }
 	};
 	
 	exports.default = configurations;
