@@ -79,4 +79,4 @@ class TilesFlow {
 }
 
 exports.patterns = patterns;
-export default TilesFlow;
+exports.TilesFlow = TilesFlow;
