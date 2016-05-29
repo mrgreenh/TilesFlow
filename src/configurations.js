@@ -1,3 +1,5 @@
+import {patterns} from 'tilesflow';
+
 var configurations = configurations = {
     theGrid: {
         forces: [
@@ -24,7 +26,8 @@ var configurations = configurations = {
            }
         ],
         visualConfig: {
-            stroke: [0,255,0,255]
+            stroke: [0,255,0,255],
+//            pattern: patterns.brokenGlass
         }
     },
     colors: {
@@ -36,7 +39,8 @@ var configurations = configurations = {
              intensity: 60,
              influencePosition: true,
              invert: true,
-             color: [255, 150, 0, 255]
+             color: [255, 150, 0, 255],
+ //            pattern: patterns.brokenGlass
            },
        forces: [
             {

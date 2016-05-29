@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "description": "The github page for the TilesFlow thinghy",
   "main": "index.js",
-  "dependencies": {
-    "tilesflow": "git://github.com/mrgreenh/TilesFlow.git"
-  },
+  "dependencies": {},
   "devDependencies": {},
   "scripts": {
     "test": "mocha"

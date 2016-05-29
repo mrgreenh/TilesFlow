@@ -1,4 +1,4 @@
-import TilesFlow from 'tilesflow';
+import TilesFlow, {patterns} from 'tilesflow';
 import {CanvasSpace, Form, Point} from 'ptjs';
 import ReadingTracker from './ReadingTracker.js';
 
@@ -28,6 +28,8 @@ spaces.push(space);
 var canvasElem = canvasElems.shift();
 canvasElems.push(canvasElem);
 
+console.log(TilesFlow)
+console.log(patterns)
 var flows = [new TilesFlow(space, readingTracker.forceField, readingTracker.visualSettings)];
 var maxSpeedInverse = 20;
 var speedInverse = 20;

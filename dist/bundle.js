@@ -143,6 +143,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var canvasElem = canvasElems.shift();
 	canvasElems.push(canvasElem);
 	
+	console.log(_tilesflow2.default);
+	console.log(_tilesflow.patterns);
 	var flows = [new _tilesflow2.default(space, readingTracker.forceField, readingTracker.visualSettings)];
 	var maxSpeedInverse = 20;
 	var speedInverse = 20;
@@ -14709,13 +14711,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 68 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	
+	var _tilesflow = __webpack_require__(60);
+	
 	var configurations = configurations = {
 	    theGrid: {
 	        forces: [],
@@ -14741,6 +14746,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            stroke: [0, 255, 0, 255]
 	        }
 	    },
+	    //            pattern: patterns.brokenGlass
 	    colors: {
 	        visualConfig: {
 	            x: 20,
@@ -14752,6 +14758,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            invert: true,
 	            color: [255, 150, 0, 255]
 	        },
+	        //            pattern: patterns.brokenGlass
 	        forces: [{
 	            x: 20,
 	            y: 20,
