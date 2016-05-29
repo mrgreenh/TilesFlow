@@ -163,7 +163,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  if (previousConfName != readingTracker.selectedConfName || transitionProgress) {
 	    if (!transitioningToConf) {
 	      transitioningToConf = readingTracker.selectedConfName;
-	      console.log("Starting transition to " + transitioningToConf);
 	      var space = spaces.shift();
 	      var targetForceField = Array.apply(null, readingTracker.forceField);
 	      var targetVisualSettings = (0, _assign2.default)({}, readingTracker.visualSettings);
@@ -180,7 +179,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	      transitionProgress++;
 	    } else {
 	      transitionProgress = 0;
-	      console.log("Finished transition to " + transitioningToConf);
 	      previousConfName = transitioningToConf;
 	      transitioningToConf = null;
 	      flows.shift();

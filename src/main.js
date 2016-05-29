@@ -48,7 +48,6 @@ function paint(timestamp){
   if(previousConfName != readingTracker.selectedConfName || transitionProgress){
     if(!transitioningToConf){
       transitioningToConf = readingTracker.selectedConfName;
-      console.log("Starting transition to "+transitioningToConf);
       var space = spaces.shift();
       var targetForceField = Array.apply(null, readingTracker.forceField);
       var targetVisualSettings = Object.assign({}, readingTracker.visualSettings)
@@ -65,7 +64,6 @@ function paint(timestamp){
       transitionProgress ++;
     }else{
       transitionProgress = 0;
-      console.log("Finished transition to "+transitioningToConf);
       previousConfName = transitioningToConf;
       transitioningToConf = null;
       flows.shift();
