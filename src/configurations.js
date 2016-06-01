@@ -7,8 +7,7 @@ var configurations = configurations = {
         visualConfig: {
             step: 70,
             baseColor: [0,0,0,0],
-            colorInterpolationMode:"addition",
-            padding: [0,0,2,0],
+            padding: [0,0,0,0],
             stroke: [100,100,100,100]
         }
     },

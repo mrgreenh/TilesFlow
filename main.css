@@ -9,6 +9,7 @@ body {
 }
 
 .pageContainer {
+    padding-top:300px;
     width: 80%;
     margin: 0px auto;
     position: relative;
@@ -17,6 +18,7 @@ body {
 .pt{
     position: fixed;
     width: 100%;
+    height: 350px;
 }
 .canvasElem {
     width: 100%;
@@ -27,5 +29,43 @@ body {
 
 
 #projectDescription {
-    padding-top: 250px;
+    font-family: 'robotoregular';
+    font-size: 17px;
+    color: #555;
+}
+
+#projectDescription h2 {
+    font-family: 'roboto_condensedlight';
+    font-weight: 100;
+    font-size: 45px;
+    color: #ccc;
+}
+
+#projectDescription pre {
+    padding: 30px;
+    border: solid 1px #ddd;
+}
+
+@font-face {
+    font-family: 'roboto_condensedlight';
+    src: url('./fonts/RobotoCondensed-Light-webfont.eot');
+    src: url('./fonts/RobotoCondensed-Light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('./fonts/RobotoCondensed-Light-webfont.woff') format('woff'),
+         url('./fonts/RobotoCondensed-Light-webfont.ttf') format('truetype'),
+         url('./fonts/RobotoCondensed-Light-webfont.svg#roboto_condensedlight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'robotoregular';
+    src: url('./fonts/Roboto-Regular-webfont.eot');
+    src: url('./fonts/Roboto-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('./fonts/Roboto-Regular-webfont.woff') format('woff'),
+         url('./fonts/Roboto-Regular-webfont.ttf') format('truetype'),
+         url('./fonts/Roboto-Regular-webfont.svg#robotoregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
 }

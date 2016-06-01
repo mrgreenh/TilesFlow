@@ -24,7 +24,7 @@ class ReadingTracker {
             for(let i = paragraphs.length-1; i>=0; i--){
                 var p = paragraphs.item(i);
                 var boundingBox = p.getBoundingClientRect();
-                if( boundingBox.top < 300 ){
+                if( boundingBox.top < 600 ){
                     var scrollCallbackName = p.getAttribute("data-scrollToConf");
                     if(scrollCallbackName && configurations[scrollCallbackName]){
                         console.log(scrollCallbackName)

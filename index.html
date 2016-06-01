@@ -10,16 +10,26 @@
 
 <body>
     <div id="pt" class="pt">
-        <canvas id="canvasElem" class="canvasElem"></canvas>
     </div>
     <div id="pt2" class="pt">
-        <canvas id="canvasElem2" style="opacity: 0" class="canvasElem"></canvas>
     </div>
     <div class="pageContainer">
         <section id="projectDescription">
             <h2>The Grid</h2>
             <p data-scrollToConf="theGrid">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ullamcorper purus arcu, vel gravida elit malesuada at. Vivamus et dolor mattis, ultrices tellus vel, tempus lectus. Mauris id eros nec quam pretium eleifend et ut augue. Duis eu mollis est. Suspendisse gravida pulvinar ipsum, eu maximus nulla rutrum sit amet. Cras a mollis metus. Maecenas venenatis neque at purus commodo interdum. Curabitur condimentum orci id ipsum viverra, sit amet congue risus dignissim. Curabitur vel dictum sapien. Aenean vel neque condimentum, aliquam turpis id, mattis mauris. Nunc in lectus tincidunt, aliquet libero at, fringilla eros. Fusce orci leo, facilisis et tempus sit amet, venenatis at velit. Vestibulum vitae sagittis urna, eget imperdiet nunc. Sed id lectus sed eros maximus egestas id ac tellus. Sed sagittis enim vel tellus venenatis, quis interdum tortor lacinia.
+                First, you need a grid of points and the triangles that interconnect them.
+                <pre>
+import TilesFlow from 'tilesflow';
+
+var visualSettings = {
+            step: 70,
+            baseColor: [0,0,0,0],
+            padding: [0,0,0,0],
+            stroke: [100,100,100,100]
+        }
+var tf = new TilesFlow(space, {}, );
+                </pre>
+
             </p>
             <h2>Forces</h2>
             <p data-scrollToConf="forces">
