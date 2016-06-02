@@ -7,7 +7,7 @@ var configurations = configurations = {
         visualConfig: {
             step: 70,
             baseColor: [0,0,0,0],
-            padding: [0,0,0,0],
+            padding: [0,0,1,0],
             stroke: [100,100,100,100]
         }
     },
@@ -24,13 +24,15 @@ var configurations = configurations = {
         ],
         visualConfig: {
             stroke: [0,255,0,255],
-            pattern: TilesFlow.PATTERNS.brokenGlass
+            pattern: TilesFlow.PATTERNS.brokenGlass,
+            padding: [0,0,1,0],
         }
     },
     colors: {
         visualConfig: {
              color: [255, 150, 0, 255],
-             pattern: TilesFlow.PATTERNS.brokenGlass
+             pattern: TilesFlow.PATTERNS.brokenGlass,
+             padding: [0,0,1,0],
            },
        forces: [
             {
@@ -40,7 +42,6 @@ var configurations = configurations = {
              intensity: 100,
              influencePosition: true,
              influenceColor: true,
-             
              color: [100, 50, 50, 255]
            },
             {

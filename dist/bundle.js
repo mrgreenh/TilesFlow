@@ -8242,7 +8242,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                for (var i = paragraphs.length - 1; i >= 0; i--) {
 	                    var p = paragraphs.item(i);
 	                    var boundingBox = p.getBoundingClientRect();
-	                    if (boundingBox.top < 600) {
+	                    if (boundingBox.top < 500) {
 	                        var scrollCallbackName = p.getAttribute("data-scrollToConf");
 	                        if (scrollCallbackName && _configurations2.default[scrollCallbackName]) {
 	                            _this._scrollToConf(scrollCallbackName);
@@ -8350,7 +8350,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        visualConfig: {
 	            step: 70,
 	            baseColor: [0, 0, 0, 0],
-	            padding: [0, 0, 0, 0],
+	            padding: [0, 0, 1, 0],
 	            stroke: [100, 100, 100, 100]
 	        }
 	    },
@@ -8365,13 +8365,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }],
 	        visualConfig: {
 	            stroke: [0, 255, 0, 255],
-	            pattern: _tilesflow2.default.PATTERNS.brokenGlass
+	            pattern: _tilesflow2.default.PATTERNS.brokenGlass,
+	            padding: [0, 0, 1, 0]
 	        }
 	    },
 	    colors: {
 	        visualConfig: {
 	            color: [255, 150, 0, 255],
-	            pattern: _tilesflow2.default.PATTERNS.brokenGlass
+	            pattern: _tilesflow2.default.PATTERNS.brokenGlass,
+	            padding: [0, 0, 1, 0]
 	        },
 	        forces: [{
 	            x: 30,
@@ -8380,7 +8382,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	            intensity: 100,
 	            influencePosition: true,
 	            influenceColor: true,
-	
 	            color: [100, 50, 50, 255]
 	        }, {
 	            x: 80,
