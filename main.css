@@ -57,6 +57,7 @@ body {
 #projectDescription pre {
     padding: 30px;
     border: solid 1px #ddd;
+    overflow: scroll;
 }
 
 @font-face {
