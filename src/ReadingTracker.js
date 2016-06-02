@@ -27,7 +27,6 @@ class ReadingTracker {
                 if( boundingBox.top < 600 ){
                     var scrollCallbackName = p.getAttribute("data-scrollToConf");
                     if(scrollCallbackName && configurations[scrollCallbackName]){
-                        console.log(scrollCallbackName)
                         this._scrollToConf(scrollCallbackName);
                         break;
                     }

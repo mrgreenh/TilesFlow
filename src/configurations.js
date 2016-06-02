@@ -20,7 +20,7 @@ var configurations = configurations = {
              intensity: 100,
              influencePosition: true,
              color: [100, 50, 50, 255]
-           },
+           }
         ],
         visualConfig: {
             stroke: [0,255,0,255],
@@ -29,13 +29,6 @@ var configurations = configurations = {
     },
     colors: {
         visualConfig: {
-             x: 20,
-             y: 20,
-             decay: "cosine",
-             stroke: [0,0,0,0],
-             intensity: 60,
-             influencePosition: true,
-             
              color: [255, 150, 0, 255],
              pattern: TilesFlow.PATTERNS.brokenGlass
            },
@@ -50,7 +43,7 @@ var configurations = configurations = {
              
              color: [100, 50, 50, 255]
            },
-                       {
+            {
              x: 80,
              y: 80,
              decay: "linear",
