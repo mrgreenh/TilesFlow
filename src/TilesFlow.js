@@ -2,13 +2,20 @@ import {Form, Point, Color} from 'ptjs';
 import PointsMatrix from './PointsMatrix.js';
 import patterns from './patterns.js';
 import ForceField from './ForceField.js';
+import {CanvasSpace} from 'ptjs';
 
 class TilesFlow {
 
-    constructor(space, forceField, visualSettings){
-        this._space = space;
-        this._forceField = new ForceField(forceField, space.size.x, space.size.y);
+    constructor(containerId, forceField, visualSettings){
+        this._space = new CanvasSpace('canvasElem_'+containerId.substr(1), '#fff').display(containerId);
+        this._space.size.x = this._space.space.width;
+        this._space.size.y = this._space.space.height;
+        this._forceField = new ForceField(forceField, this._space.size.x, this._space.size.y);
         this._visualSettings = visualSettings;
+    }
+
+    getCanvas(){
+        return this._space.space;
     }
 
     render(offsetX){
