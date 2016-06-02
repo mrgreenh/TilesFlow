@@ -97,15 +97,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var TilesFlow = function () {
-	    function TilesFlow(space, forceField, visualSettings) {
+	    function TilesFlow(containerId, forceField, visualSettings) {
 	        (0, _classCallCheck3.default)(this, TilesFlow);
 	
-	        this._space = space;
-	        this._forceField = new _ForceField2.default(forceField, space.size.x, space.size.y);
+	        this._space = new _ptjs.CanvasSpace('canvasElem_' + containerId.substr(1), '#fff').display(containerId);
+	        this._space.size.x = this._space.space.width;
+	        this._space.size.y = this._space.space.height;
+	        this._forceField = new _ForceField2.default(forceField, this._space.size.x, this._space.size.y);
 	        this._visualSettings = visualSettings;
 	    }
 	
 	    (0, _createClass3.default)(TilesFlow, [{
+	        key: 'getCanvas',
+	        value: function getCanvas() {
+	            return this._space.space;
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render(offsetX) {
 	            var _Object$assign2;
