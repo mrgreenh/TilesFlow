@@ -7372,7 +7372,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this._vector = new _ptjs.Vector(this._x, this._y);
 	        this._direction = direction;
 	        this._intensity = intensity;
-	        this._color = color;
+	        this._color = color || [0, 0, 0, 0];
 	        this._decay = decay;
 	        this._invert = invert;
 	
