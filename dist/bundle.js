@@ -8021,7 +8021,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		        this._vector = new _ptjs.Vector(this._x, this._y);
 		        this._direction = direction;
 		        this._intensity = intensity;
-		        this._color = color;
+		        this._color = color || [0, 0, 0, 0];
 		        this._decay = decay;
 		        this._invert = invert;
 		
@@ -8219,7 +8219,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this._text = document.querySelector("#projectDescription");
 	
 	        this.selectedConfName = undefined;
-	        this._scrollToConf("theGrid");
+	        this._scrollToConf("points");
 	        this._bindScrollEvents();
 	    }
 	
@@ -8344,53 +8344,64 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var configurations = configurations = {
-	    theGrid: {
+	var configurations = {
+	    points: {
 	        forces: [],
 	        visualConfig: {
-	            step: 70,
-	            baseColor: [0, 0, 0, 0],
-	            padding: [0, 0, 1, 0],
-	            stroke: [100, 100, 100, 100]
+	            pointsColor: [0, 0, 0, 255]
+	        }
+	    },
+	    step: {
+	        forces: [],
+	        visualConfig: {
+	            step: 50,
+	            pointsColor: [0, 0, 0, 255]
+	        }
+	    },
+	    triangles: {
+	        forces: [],
+	        visualConfig: {
+	            stroke: [0, 0, 0, 100],
+	            pointsColor: [0, 255, 0, 255]
+	        }
+	    },
+	    colors: {
+	        forces: [],
+	        visualConfig: {
+	            stroke: [100, 0, 100, 255],
+	            pointsColor: [200, 0, 200, 255],
+	            baseColor: [250, 250, 0, 100]
 	        }
 	    },
 	    forces: {
 	        forces: [{
-	            x: 30,
-	            y: 45,
+	            x: 50,
+	            y: 40,
 	            decay: "linear",
 	            intensity: 100,
-	            influencePosition: true,
-	            color: [100, 50, 50, 255]
+	            influencePosition: true
 	        }],
 	        visualConfig: {
-	            stroke: [0, 255, 0, 255],
-	            pattern: _tilesflow2.default.PATTERNS.brokenGlass,
+	            stroke: [100, 0, 100, 255],
+	            pointsColor: [0, 0, 0, 255],
+	            baseColor: [250, 250, 0, 100],
+	            showForces: true,
 	            padding: [0, 0, 1, 0]
 	        }
 	    },
-	    colors: {
-	        visualConfig: {
-	            color: [255, 150, 0, 255],
-	            pattern: _tilesflow2.default.PATTERNS.brokenGlass,
-	            padding: [0, 0, 1, 0]
-	        },
+	    padding: {
 	        forces: [{
-	            x: 30,
-	            y: 45,
+	            x: 50,
+	            y: 40,
 	            decay: "linear",
 	            intensity: 100,
-	            influencePosition: true,
-	            influenceColor: true,
-	            color: [100, 50, 50, 255]
-	        }, {
-	            x: 80,
-	            y: 80,
-	            decay: "linear",
-	            intensity: 100,
-	            influenceColor: true,
-	            color: [200, 0, 255, 255]
-	        }]
+	            influencePosition: true
+	        }],
+	        visualConfig: {
+	            stroke: [100, 0, 100, 255],
+	            baseColor: [250, 250, 0, 100],
+	            padding: [0, 0, 1, 0]
+	        }
 	    }
 	};
 	

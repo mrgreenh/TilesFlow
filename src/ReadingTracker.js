@@ -6,7 +6,7 @@ class ReadingTracker {
         this._text = document.querySelector("#projectDescription");
 
         this.selectedConfName = undefined;
-        this._scrollToConf("theGrid");
+        this._scrollToConf("points");
         this._bindScrollEvents();
     }
 

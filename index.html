@@ -12,37 +12,98 @@
     <div class="pageContainer">
         <section id="projectDescription">
             <h2>The Grid</h2>
-            <p data-scrollToConf="theGrid">
-                First, you need a grid of points and the triangles that interconnect them.
+            <p data-scrollToConf="points">
+                First, you need a grid of points. But before than first you'll need to run <code>npm install tilesflow</code>. Then you are ready to go:
                 <pre>
 import TilesFlow from 'tilesflow';
 
 var visualSettings = {
-            step: 70,
-            baseColor: [0,0,0,0],
-            padding: [0,0,0,0],
-            stroke: [100,100,100,100]
+            //Colors are always expressed as four-dimensional vectors.
+            // RGBA, you guessed it.
+            pointsColor: [0,0,0,255]
         }
-var tf = new TilesFlow(space, {}, );
+var tf = new TilesFlow("#containerId", [], visualSettings);
+tf.render(0);
+                </pre>
+                The <code>#containerId</code> thinghy is the id of the element where you want this visualization to appear. A canvas element will be appended to it automatically. For example, you can use a <code>div</code> as a container.
+            </p>
+
+            <h2>Distances Between Points</h2>
+            <p data-scrollToConf="step">
+                What's the 0 in <code>tf.render(0)</code> you ask? That's the phase of the animation. It can be any number really, and TilesFlow will automatically coerce it into a number between 0 and <var>step</var>. <var>step</var> is 100 by default, but you can customize it by specifying a different value for it in visualSettings. It will change the resolution of the grid. What you see above is a <var>step</var> of 50.
+            </p>
+
+            <h2>Triangles</h2>
+            <p data-ScrollToConf="triangles">
+                These points are all connected by shapes. Right now only triangles are supported, because I'm lazy. Where are the triangles then? Add a stroke color to the visualSettings to see them!
+
+                <pre>
+var visualSettings = {
+            stroke: [0,0,0,100],
+            pointsColor: [0,255,0,255]
+        }
+                </pre>
+            </p>
+
+            <p>
+                You might have some questions at this point. Why triangles? Or why is each odd column of points offsetted by half step? Well, the answer is: it's art. I liked it better that way. For example I wanted to use triangles, and having a grid like this allows me to have a more dense flow of triangles by using less points. Cuz points are expensive :/
+            </p>
+
+            <h2>Colors</h2>
+            <p data-scrollToConf="colors">
+                As you probably noticed by now, colors are expressed as four-dimensional vectors. And yeah, you guessed it, that's the RGBA space. All values go from 0 to 255. Now, I imagine you want to see some colors. You can set a color for the lines, a color for the points, and a color for the connecting triangles in the <var>visualSettings</var>:
+                <pre>
+var visualSettings = {
+            stroke: [100,0,100,255],
+            pointsColor: [200,0,200,255],
+            baseColor: [250,250,0,100]
+}
+                </pre>
+            </p>
+
+            <h2>Forces</h2>
+            <p>
+                Now this is where it gets fun. You were probably wondering what is that <code>[]</code> that was left empty in <code>new TilesFlow("#containerId", [], visualSettings)</code>.
+                That is the <var>forceField</var>.
+            </p>
+            <p data-scrollToConf="forces">
+                Let's go ahead and give our visualization a forcefield to see what happens:
+
+                <pre>
+var forceField = [
+    {
+         x: 50,
+         y: 40,
+         decay: "linear",
+         intensity: 100,
+         influencePosition: true
+   }
+]
+
+var visualConfig = {
+    stroke: [100,0,100,255],
+    pointsColor: [0,0,0,255],
+    baseColor: [250,250,0,100],
+    showForces: true,
+    padding: [0,0,1,0]
+}
+
+var tf = new TilesFlow("#containerId", forceField, visualSettings);
+tf.render(0);
                 </pre>
 
             </p>
-            <h2>Forces</h2>
-            <p data-scrollToConf="forces">
-            Nullam dapibus lorem eget sem tristique porta non vel turpis. Etiam semper commodo urna sit amet tempus. Aliquam vestibulum massa ex, quis bibendum justo lobortis ut. Nunc viverra, nisi vel lobortis mattis, sapien magna consectetur urna, in hendrerit sem neque quis sapien. Vivamus varius elit vitae purus aliquam vulputate. Pellentesque dapibus hendrerit pulvinar. Maecenas elementum lobortis rutrum. Sed posuere mauris in venenatis fringilla. Morbi justo metus, condimentum vel condimentum ut, faucibus eget libero. Aenean convallis justo et urna bibendum accumsan. Etiam lobortis leo nec mollis ullamcorper. Nullam ac purus ligula. Donec risus nulla, sollicitudin sit amet leo at, semper luctus tellus. Nam dapibus enim nec quam mollis, id placerat quam condimentum. Morbi a pulvinar mi. Suspendisse rutrum non lacus vel rutrum.
+            <p>
+                Cool uh? That red point in the middle of the canvas is the force. We see it thanks to the <var>showForces</var> option. It is pushing apart the points that get in its proximity with an <var>intensity</var> of 100. As a result also the triangles get distorted. It's x and y position are expressed in percentage, this means <code>x: 50, y: 50</code> would position the force in the middle of the canvas. 
             </p>
-            <h2>Colors</h2>
-            <p data-scrollToConf="colors">
-            Aliquam erat volutpat. Praesent neque odio, iaculis lacinia est nec, fringilla suscipit ante. Etiam vel mi sit amet felis pharetra congue quis ut augue. Morbi id ligula id sapien fringilla auctor. Proin viverra consequat ante, tincidunt tristique felis interdum a. Donec non ex nec dui finibus viverra. Pellentesque magna erat, pulvinar ac lacinia sit amet, mattis vitae tortor. In hac habitasse platea dictumst. Duis ac justo turpis. Suspendisse nunc sem, vulputate sit amet hendrerit ut, commodo non mi. Etiam ipsum arcu, faucibus nec pharetra eu, placerat vitae justo. Phasellus at urna sit amet velit consectetur volutpat. Etiam maximus, eros ac rutrum auctor, mi neque commodo elit, sed posuere quam enim a est. Aliquam auctor venenatis mi. Curabitur placerat est et nunc volutpat convallis.
+            <p>
+                The <var>decay</var> is <var>linear</var>, which is the default option, but you can also use <var>cosine</var>, <var>sine</var> <var>clipping_power</var> at the time of writing.
             </p>
-            <h2>Displacement</h2>
-            <p data-scrollToConf="displacement">
-            Suspendisse vitae arcu congue, cursus purus sed, dapibus velit. Ut ac purus aliquam, tincidunt felis a, condimentum nunc. Cras rutrum pretium lorem nec mattis. Nullam convallis sapien lectus, id tempor nulla convallis ultricies. Curabitur vulputate velit orci, eget scelerisque eros maximus sit amet. Praesent erat arcu, bibendum at ante a, pharetra faucibus nulla. Integer ut viverra sapien, mattis lobortis est. Nulla aliquet risus leo, in lobortis nulla interdum in. Donec eleifend luctus lectus, eu fermentum sem scelerisque ut. Vestibulum aliquam, nulla ac lacinia dignissim, nunc mi pellentesque risus, quis mollis tortor mauris sed eros. Suspendisse fermentum mattis condimentum. Praesent egestas erat tortor, vel ultrices nunc commodo quis. Nunc porttitor est sem, non pulvinar massa congue id. Pellentesque placerat tincidunt mauris, id tristique erat tempor varius.
+
+            <p data-scrollToConf="padding">
+                The <var>padding</var> option in the visual settings is just causing the lowest row of the dots to not be connected by any triangle. I added it because I didn't want the force to push any triangles outside of the viewport, to avoid that horrible-looking clipping.
             </p>
-            <h2>Patterns</h2>
-            <p data-scrollToConf="patterns">
-            Vestibulum sit amet lectus ac nibh laoreet faucibus. Quisque molestie vitae magna vel convallis. Etiam sit amet dictum metus. Donec dignissim vitae velit in viverra. Nam a ante at eros hendrerit sodales nec in lacus. Proin semper quis risus ac consequat. Fusce ultricies malesuada arcu nec ultrices. Etiam sed vehicula nunc, non maximus justo. Suspendisse id leo ultricies, pellentesque purus at, cursus metus. Praesent nulla libero, cursus in lacus dictum, imperdiet pretium risus. Sed sed massa lobortis, consectetur nunc id, tincidunt elit. Curabitur tellus quam, tempor et nisl sit amet, vehicula tincidunt lectus. Morbi lacinia risus eget rutrum pharetra. Duis ex mauris, pretium id ultrices ac, elementum et arcu.
-            </p>
+
         </section>
 
         <div id="canvasContainer">
