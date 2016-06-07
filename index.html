@@ -98,13 +98,177 @@ tf.render(0);
             </p>
             <p>
                 The <var>decay</var> is <var>linear</var>, which is the default option, but you can also use <var>cosine</var>, <var>sine</var> <var>clipping_power</var> at the time of writing.
+                There is also a <var>inverse</var> key you can set to a boolean, it will invert the function influencing the points. This means further points will get influenced more strongly than closer points.
             </p>
 
             <p data-scrollToConf="padding">
                 The <var>padding</var> option in the visual settings is just causing the lowest row of the dots to not be connected by any triangle. I added it because I didn't want the force to push any triangles outside of the viewport, to avoid that horrible-looking clipping.
             </p>
 
+            <h2>Force and Colors</h2>
+            <p data-scrollToConf="forces_colors">
+                the <var>influencePosition</var> variable in the force configuration is indicating that the force will only influence the position of the points getting close to it. However it is possible to also add a <var>influenceColor</var> flag that will cause the force to interpolate the value of a given <var>color</var> key with the base color of the visualization.
+            </p>
+            <pre>
+var forceField = [
+    {
+         x: 50,
+         y: 40,
+         decay: "linear",
+         intensity: 100,
+         influencePosition: true,
+         influenceColor: true,
+         color: [250, 0, 100, 250]
+   }
+]
+
+var visualConfig = {
+    stroke: [255,255,255,255],
+    pointsColor: [0,0,0,255],
+    baseColor: [50,100,50,50],
+    showForces: true,
+    padding: [0,0,1,0]
+}
+            </pre>
+
+            <h2>More on colors...</h2>
+
+            <p data-scrollToConf="more_on_colors">
+                The visual settings also accept a <var>colorInterpolationMode</var> option. For now only 'addition' and 'subtraction' are supported. This is convenient if you want to reason in a negative way. Not in the sense you need to be sad, but in the sense that you might want to have a very light background and have the forces <strong>subtract</strong> their color instead.
+            </p>
+
+            <p>
+                Also it is possible of course to specify forces not causing any spacial displacement and only influencing colors. 
+            </p>
+
+            <pre>
+var forceField =[
+    {
+         x: 50,
+         y: 40,
+         decay: "linear",
+         intensity: 100,
+         influencePosition: true,
+         influenceColor: true,
+         color: [150, 0, 200, 0]
+   },
+   {
+         x: 20,
+         y: 60,
+         decay: "cosine",
+         intensity: 150,
+         influenceColor: true,
+         color: [100, 100, 50, 0]
+   },
+  {
+         x: 80,
+         y: -20,
+         decay: "sine",
+         intensity: 150,
+         influenceColor: true,
+         color: [100, 100, 50, 0]
+   },
+ {
+         x: 60,
+         y: 60,
+         decay: "clipping_power",
+         intensity: 200,
+         influenceColor: true,
+         color: [0, 200, 200, 0]
+   }
+
+];
+var visualConfig = {
+        stroke: [255,255,255,0],
+        baseColor: [255,255,255,255],
+        padding: [0,0,1,0],
+        colorInterpolationMode: "subtraction"
+};
+            </pre>
+
+            <h2>Patterns</h2>
+            <p data-scrollToConf="patterns">
+                What you are looking at right now looks like a piece of cloth. This is because the triangles connecting all points are covering the entire surface without overlapping. It is possible however to provide the <var>visualConfig</var> with a <var>pattern</var> key that specifies the way triangles are supposed to connect the dots. In theory, this lib can easily be extended to support connecting points with circles, or squares, or teddy bears. In theory. In practice, this is my little artistic project that I like to fill with triangles just because. :) However, if you'd like to use teddy bears instead, shoot me a Github issue or, even better, a pull request.
+            </p>
+
+            <p>
+                Going back to triangles patterns, you can make this viz look like, for example, shards of broken glass, or some very intricated origami, by changing the pattern and tweaking the settings. I won't say there are infinite possibilities, because we are moving in a discrete space with limited resources hence there aren't, but there are quite enough as usual for anybody to have fun experimenting.
+            </p>
+
+            <pre>
+var forceField = [
+    {
+         x: 50,
+         y: 40,
+         decay: "linear",
+         intensity: 100,
+         influencePosition: true,
+         influenceColor: true,
+         color: [150, 0, 200, 0]
+   },
+   {
+         x: 35,
+         y: 60,
+         decay: "cosine",
+         intensity: 80,
+         influenceColor: true,
+         color: [100, 100, 50, 0]
+   },
+  {
+         x: 80,
+         y: -20,
+         decay: "sine",
+         intensity: 90,
+         influenceColor: true,
+         color: [100, 100, 50, 0]
+   },
+ {
+         x: 60,
+         y: 60,
+         decay: "clipping_power",
+         intensity: 100,
+         influenceColor: true,
+         color: [0, 200, 200, 0]
+   },
+
+    {
+         x: 55,
+         y: 90,
+         intensity: 100,
+         influencePosition: true
+   },
+
+   {
+         x: 30,
+         y: 90,
+         intensity: 100,
+         influencePosition: true
+   }
+
+];
+var visualConfig = {
+        baseColor: [255,255,255,255],
+        stroke: [50,50,50,50],
+        padding: [0,0,2,0],
+        colorInterpolationMode: "subtraction",
+        pattern: TilesFlow.PATTERNS.brokenGlass
+    }
+}
+            </pre>
+            <p>
+                That's all for now!
+            </p>
+            <h2>
+                Enjoy!
+            </h2>
+
+        <footer>
+            <p><a title="Github repo" href="https://github.com/mrgreenh/TilesFlow">Github repo of this thing</a></p>
+            <p>Follow <a href="https://twitter.com/MrGreenH">@mrgreenh</a> on twittwer.</p>
+        </footer>
+
         </section>
+
 
         <div id="canvasContainer">
             <div id="pt" class="pt">
